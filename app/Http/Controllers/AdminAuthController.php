@@ -24,9 +24,7 @@ class AdminAuthController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return back()->withErrors([
-            'username' => 'Username atau password salah',
-        ]);
+        return back()->withErrors(['login' => 'Username atau password salah']);
     }
 
     public function logout(Request $request)
