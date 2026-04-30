@@ -1,0 +1,30 @@
+@extends('layouts.user')
+
+@section('content')
+
+<section class="profile-section">
+    <div class="container konten-profil text-center">
+
+        <!-- VISI -->
+        <h2 class="judul-profil">Visi</h2>
+
+        <div class="box-visi">
+            “TERWUJUDNYA KECAMATAN NONGSA SEBAGAI TUJUAN WISATA BERBUDAYA DAN RELIGIUS DENGAN APARATUR PEMERINTAHAN  YANG PROFESIONAL DAN BERAHLAK MULIA”.”
+        </div>
+
+        <!-- MISI -->
+        <h2 class="judul-profil mt-5">Misi</h2>
+
+        <div class="box-misi text-start">
+            <ol>
+                <li>MEMPERTAHANKAN POTENSI WISATA, NILAI SENI DAN BUDAYA LOKAL DENGAN MENJADIKAN AGENDA KEGIATAN TAHUNAN YANG MELIBATKAN PARTISIPASI MASYARAKAT.</li>
+                <li>MENINGKATKAN KUALITAS APARATUR YANG BAIK, BERSIH DAN BERWIBAWA SERTA MENGEMBANGKAN SUMBER DAYA MASYARAKAT YANG MEMILIKI KEMAMPUAN IPTEK DENGAN DILANDASI IMAN DAN TAQWA.</li>
+                <li>MENINGKATKAN PEMBANGUNAN INFRASTRUKTUR WILAYAH YANG LANGSUNG MENYENTUH KEPENTINGAN MASYARAKAT.</li>
+                <li>MENINGKATKAN KUALITAS PELAKSANAN PELAYANAN APARATUR DALAM BIDANG PEMERINTAHAN, KESEJAHTERAAN RAKYAT, PEMBANGUNAN PEMBERDAYAAN MASYARAKAT, KETENTRAMAN DAN KETERTIBAN MASYARAKAT</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+
+@endsection

@@ -9,20 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::table('wargas', function (Blueprint $table) {
-        $table->string('keterangan')->nullable()->after('kewarganegaraan');
-    });
-}
+    public function up(): void
+    {
+        Schema::create('rws', function (Blueprint $table) {
+            $table->id('id_rw');
+            $table->integer('nomor_rw');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::table('wargas', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('rws');
     }
 };
