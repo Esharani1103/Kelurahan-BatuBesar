@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             RwSeeder::class,
             RtSeeder::class,
+            KeluargaSeeder::class,
+            WargaSeeder::class,
         ]);
     }
 }

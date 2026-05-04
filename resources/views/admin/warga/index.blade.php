@@ -54,7 +54,41 @@ Kelola Data Warga
                 <span class="text-sm font-bold text-gray-700 italic">Data Warga (Halaman: {{ $warga->currentPage() }})</span>
                 <span class="text-xs bg-orange-100 px-2 py-1 rounded text-orange-700 font-bold">Total: {{ $warga->total() }} Orang</span>
             </div>
-            
+             <!-- SEARCH -->
+             <form method="GET" action="{{ route('warga.index') }}" class="p-4 flex justify-end">
+    <div class="relative w-1/3">
+        
+        <input type="text"
+            name="search"
+            id="searchInput"
+            value="{{ request('search') }}"
+            placeholder="Cari NIK, Nama, KK..."
+            class="w-full pl-10 pr-10 py-2 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+
+        <!-- ICON KIRI -->
+        <span class="absolute left-3 top-2.5 text-gray-400">
+            <i class="fas fa-search"></i>
+        </span>
+
+        <!-- BUTTON ENTER -->
+        <button type="submit"
+            class="absolute right-2 top-1.5 bg-orange-500 text-white px-3 py-1 rounded text-xs hover:bg-orange-600">
+            Cari
+        </button>
+
+    </div>
+</form>
+
+            @php
+            function highlight($text, $search) {
+            if (!$search) return $text;
+            return preg_replace(
+            "/(" . preg_quote($search, '/') . ")/i",
+            '<span class="bg-yellow-200 font-bold">$1</span>',
+            $text
+            );
+            }
+            @endphp
             <div class="table-container">
                 <table class="w-full text-[11px] text-left border-collapse">
                     <thead>
@@ -84,23 +118,23 @@ Kelola Data Warga
                         @forelse($warga as $index => $w)
                         <tr class="hover:bg-orange-50 transition">
                             <td class="p-3 border-r text-center text-gray-400 font-bold">{{ ($warga->currentPage() - 1) * $warga->perPage() + $index + 1 }}</td>
-                            <td class="p-3 border-r font-mono">{{ $w->keluarga->no_kk ?? '-' }}</td>
-                            <td class="p-3 border-r font-mono font-bold text-gray-800">{{ $w->nik }}</td>
-                            <td class="p-3 border-r uppercase font-semibold text-blue-900">{{ $w->nama_lengkap }}</td>
+                            <td class="p-3 border-r font-mono">{!! highlight($w->keluarga->no_kk ?? '-', request('search')) !!}</td>
+                            <td class="p-3 border-r font-mono font-bold text-gray-800">{!! highlight ($w->nik, request('search')) !!}</td>
+                            <td class="p-3 border-r uppercase font-semibold text-blue-900">{!! highlight  ($w->nama_lengkap, request('search')) !!}</td>
                             <td class="p-3 border-r text-center">{{ strtoupper($w->jenis_kelamin) == 'LAKI-LAKI' ? 'L' : 'P' }}</td>
-                            <td class="p-3 border-r">{{ $w->tempat_lahir }}</td>
+                            <td class="p-3 border-r">{!! highlight ($w->tempat_lahir, request('search')) !!}</td>
                             <td class="p-3 border-r"> {{ $w->tanggal_lahir ? \Carbon\Carbon::parse($w->tanggal_lahir)->format('d-m-Y') : '-' }}</td>
                             <td class="p-3 border-r text-center font-bold text-orange-600">{{ $w->tanggal_lahir ? \Carbon\Carbon::parse($w->tanggal_lahir)->age . ' Thn' : '-' }}</td>
-                            <td class="p-3 border-r">{{ $w->agama }}</td>
-                            <td class="p-3 border-r">{{ $w->kewarganegaraan }}</td>
-                            <td class="p-3 border-r">{{ $w->pendidikan }}</td>
-                            <td class="p-3 border-r">{{ $w->jenis_pekerjaan }}</td>
-                            <td class="p-3 border-r italic">{{ $w->keluarga->alamat ?? '-' }}</td>
+                            <td class="p-3 border-r">{!! highlight ($w->agama, request('search')) !!}</td>
+                            <td class="p-3 border-r">{!! highlight ($w->kewarganegaraan, request('search')) !!}</td>
+                            <td class="p-3 border-r">{!! highlight ($w->pendidikan, request('search')) !!}</td>
+                            <td class="p-3 border-r">{!! highlight ($w->jenis_pekerjaan, request('search'))  !!}</td>
+                            <td class="p-3 border-r italic">{!! highlight ($w->keluarga->alamat ?? '-', request('search')) !!}</td>
                             <td class="p-3 border-r text-center font-bold">{{ $w->keluarga->rt->nomor_rt ?? '-' }}/{{ $w->keluarga->rt->rw->nomor_rw ?? '-' }}</td>
-                            <td class="p-3 border-r text-center">{{ $w->status_perkawinan }}</td>
-                            <td class="p-3 border-r text-center">{{ $w->status_hubungan }}</td>
-                            <td class="p-3 border-r text-blue-700 font-medium">{{ $w->keluarga->nama_kepala_keluarga ?? '-' }}</td>
-                            <td class="p-3 border-r text-orange-600 font-medium italic bg-yellow-50/30">{{ $w->keterangan ?? '-' }}</td>
+                            <td class="p-3 border-r text-center">{!! highlight ($w->status_perkawinan, request('search')) !!}</td>
+                            <td class="p-3 border-r text-center">{!! highlight($w->status_hubungan, request('search')) !!}</td>
+                            <td class="p-3 border-r text-blue-700 font-medium">{!! highlight ($w->keluarga->nama_kepala_keluarga ?? '-', request('search')) !!}</td>
+                            <td class="p-3 border-r text-orange-600 font-medium italic bg-yellow-50/30">{!! highlight ($w->keterangan ?? '-', request('search')) !!}</td>
                             <td class="p-3 text-center sticky right-0 bg-white shadow-l">
                                 <div class="flex justify-center gap-2">
                                     <!-- EDIT -->
@@ -472,6 +506,16 @@ function toggleModal() {
     modal.classList.toggle('hidden');
     modal.classList.toggle('flex');
 }
+
+let timeout = null;
+
+document.getElementById('searchInput').addEventListener('keyup', function () {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        this.form.submit();
+    }, 1500); // tunggu 0.5 detik setelah user berhenti ngetik
+});
 
 function hitungUmur(el) {
     const tglLahir = el.value;

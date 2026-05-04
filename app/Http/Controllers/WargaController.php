@@ -10,16 +10,35 @@ use App\Models\Rw;
 
 class WargaController extends Controller
 {
-    public function index()
-    {
-        $warga = Warga::with('keluarga.rt.rw')
-            ->orderBy('id','asc')
-            ->paginate(50);
+   public function index(Request $request)
+{
+    $query = Warga::with('keluarga.rt.rw')
+                ->orderBy('id', 'asc');
 
-        $keluargas = Keluarga::all();
+    // SEARCH
+    if ($request->search) {
+        $search = $request->search;
 
-        return view('admin.warga.index', compact('warga','keluargas'));
+        $query->where(function ($q) use ($search) {
+            $q->where('nik', 'like', "%$search%")
+              ->orWhere('nama_lengkap', 'like', "%$search%")
+              ->orWhere('tempat_lahir', 'like', "%$search%")
+              ->orWhere('agama', 'like', "%$search%")
+              ->orWhere('kewarganegaraan', 'like', "%$search%")
+              ->orWhereHas('keluarga', function ($q2) use ($search) {
+                  $q2->where('no_kk', 'like', "%$search%")
+                     ->orWhere('alamat', 'like', "%$search%");
+              });
+        });
     }
+
+    // PAGINATION
+    $warga = $query->paginate(50)->withQueryString();
+
+    $keluargas = Keluarga::all();
+
+    return view('admin.warga.index', compact('warga','keluargas'));
+}
 
     public function store(Request $request)
     {
