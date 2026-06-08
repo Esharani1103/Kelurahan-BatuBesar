@@ -58,7 +58,12 @@
                         <div class="text-lg font-bold">Kelola Kegiatan</div>
                         <div class="mt-2 text-sm font-medium">Lihat Detail</div>
                     </a>
-
+                    <!-- Card Layanan -->
+                    <a href="{{ route('admin.layanan') }}"
+                       class="bg-blue-500 text-white rounded-md shadow-md p-6 w-60 hover:bg-blue-700 transition block">
+                        <div class="text-lg font-bold">Kelola Layanan</div>
+                        <div class="mt-2 text-sm font-medium">Lihat Detail</div>
+                    </a>
                 </div>
             </div>
 

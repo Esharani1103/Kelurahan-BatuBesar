@@ -1,4 +1,14 @@
+{{-- resources/views/beranda.blade.php --}}
 @extends('layouts.user')
+
+@section('title', 'Beranda')
+
+@push('styles')
+    @vite([
+        'resources/css/beranda.css',
+        'resources/css/statistik.css'
+    ])
+@endpush
 
 @section('content')
 

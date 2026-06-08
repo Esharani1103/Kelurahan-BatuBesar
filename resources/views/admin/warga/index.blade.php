@@ -11,7 +11,8 @@ Kelola Data Warga
     <div class="max-w-full mx-auto">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Data Warga Kelurahan Batu Besar (Admin)</h2>
 
-        @if($errors->any())
+        {{-- ERROR --}}
+@if($errors->any())
     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-4">
         <ul>
             @foreach($errors->all() as $error)
@@ -20,23 +21,33 @@ Kelola Data Warga
         </ul>
     </div>
 @endif
-        @if(session('success'))
-        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4 shadow-sm">
-            ✅ {{ session('success') }}
-        </div>
-        @endif
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold mb-3 text-gray-600 uppercase italic">Langkah 1: Import File Excel</h3>
-                <form action="{{ route('warga.import') }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-2">
-                    @csrf
-                    <input type="file" name="file" required class="text-xs border rounded p-2 flex-1 bg-gray-50">
-                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-xs font-bold transition">
-                        <i class="fas fa-sync mr-1"></i> UPDATE DATA DARI EXCEL
-                    </button>
-                </form>
-            </div>
+{{-- SUCCESS --}}
+@if(session('success'))
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded mb-4 shadow-sm">
+        ✅ {{ session('success') }}
+    </div>
+@endif
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="text-sm font-bold mb-3 text-gray-600 uppercase italic">
+            Langkah 1: Import File Excel
+        </h3>
+
+        <form action="{{ route('warga.import') }}" method="POST" enctype="multipart/form-data" class="flex flex-col sm:flex-row gap-2">
+            @csrf
+
+            <input type="file" name="file" required
+                class="text-xs border rounded p-2 flex-1 bg-gray-50">
+
+            <button type="submit" id="btnImport"
+                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-xs font-bold transition">
+                <i class="fas fa-upload mr-1"></i> IMPORT EXCEL
+            </button>
+        </form>
+    </div>
+</div>
 
             <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
                 <div>
@@ -94,6 +105,7 @@ Kelola Data Warga
                     <thead>
                         <tr class="text-gray-700 border-b">
                             <th class="p-3 border-r">No</th>
+                            <th class="p-3 border-r text-center">GRUP KK</th>
                             <th class="p-3 border-r min-w-[120px]">No KK</th>
                             <th class="p-3 border-r min-w-[120px]">NIK</th>
                             <th class="p-3 border-r min-w-[180px]">Nama Lengkap</th>
@@ -115,9 +127,25 @@ Kelola Data Warga
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
+                        @php
+                        $groupKK = 0;
+                        $lastKK = null;
+                        @endphp
                         @forelse($warga as $index => $w)
+                        @php
+                        $currentKK = $w->keluarga->no_kk ?? '-';
+
+                        if ($lastKK != $currentKK) {
+                        $groupKK++;
+                        $lastKK = $currentKK;
+                        $showGroup = true;
+                        } else {
+                        $showGroup = false;
+                        }
+                        @endphp
                         <tr class="hover:bg-orange-50 transition">
                             <td class="p-3 border-r text-center text-gray-400 font-bold">{{ ($warga->currentPage() - 1) * $warga->perPage() + $index + 1 }}</td>
+                            <td class="p-3 border-r text-center font-bold bg-gray-50">{{ $showGroup ? $groupKK : '' }}</td>
                             <td class="p-3 border-r font-mono">{!! highlight($w->keluarga->no_kk ?? '-', request('search')) !!}</td>
                             <td class="p-3 border-r font-mono font-bold text-gray-800">{!! highlight ($w->nik, request('search')) !!}</td>
                             <td class="p-3 border-r uppercase font-semibold text-blue-900">{!! highlight  ($w->nama_lengkap, request('search')) !!}</td>
@@ -164,8 +192,12 @@ Kelola Data Warga
                         @endforelse
                     </tbody>
                 </table>
+              
             </div>
             </table>
+               <div class="mt-4 px-4 py-2">
+    {{ $warga->links() }}
+</div>
 </div>
 
 <!--  MODAL EDIT (1 saja) -->
@@ -540,6 +572,12 @@ function hitungUmur(el) {
         }
     }
 }
+
+document.querySelector('form').addEventListener('submit', function() {
+    const btn = document.getElementById('btnImport');
+    btn.innerHTML = '⏳ Mengimport...';
+    btn.disabled = true;
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 

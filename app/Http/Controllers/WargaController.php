@@ -13,7 +13,13 @@ class WargaController extends Controller
    public function index(Request $request)
 {
     $query = Warga::with('keluarga.rt.rw')
-                ->orderBy('id', 'asc');
+                ->orderBy('keluarga_id')
+                ->orderByRaw("
+                   CASE 
+                WHEN status_hubungan = 'Kepala Keluarga' THEN 0
+                ELSE 1
+                END
+                ");
 
     // SEARCH
     if ($request->search) {
@@ -33,7 +39,7 @@ class WargaController extends Controller
     }
 
     // PAGINATION
-    $warga = $query->paginate(50)->withQueryString();
+    $warga = $query->paginate(100)->withQueryString();
 
     $keluargas = Keluarga::all();
 

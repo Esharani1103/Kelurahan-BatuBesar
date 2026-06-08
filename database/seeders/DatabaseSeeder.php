@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RtSeeder::class,
             KeluargaSeeder::class,
             WargaSeeder::class,
+            BerandaSeeder::class,
         ]);
     }
 }
