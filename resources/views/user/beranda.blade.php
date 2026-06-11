@@ -256,6 +256,27 @@
       </div>
     </div>
 
+      {{-- Jam Operasional --}}
+    <div class="sidebar-card fi">
+      <div class="sidebar-card-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <h3>Jam Operasional</h3>
+      </div>
+      <div class="jam-sidebar">
+        <div class="jam-sidebar-row"><span>Senin – Kamis</span><span class="jam-sidebar-waktu">07.30 – 16.00</span></div>
+        <div class="jam-sidebar-row"><span>Jumat</span><span class="jam-sidebar-waktu">07.30 – 16.30</span></div>
+        <div class="jam-sidebar-row"><span>Sabtu</span><span class="jam-sidebar-tutup">Tutup</span></div>
+        <div class="jam-sidebar-row"><span>Minggu & Libur</span><span class="jam-sidebar-tutup">Tutup</span></div>
+        <div class="status-sidebar" id="statusSidebar">
+          <div class="status-dot" id="sdot"></div>
+          <span id="statusTxt">Memuat status…</span>
+        </div>
+      </div>
+    </div>
+    
+
   </aside>
 
   {{-- ===== KONTEN TENGAH ===== --}}
@@ -443,25 +464,7 @@ php artisan storage:link
       </div>
       
 
-      <div class="jam-card">
-        <h3>
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Jam Operasional
-        </h3>
-        <p>Kantor Kelurahan Batu Besar</p>
-        <div class="jam-row"><span>Senin – Kamis</span><span class="waktu">08.00 – 16.00</span></div>
-        <div class="jam-row"><span>Jumat</span><span class="waktu">08.00 – 16.30</span></div>
-        <div class="jam-row"><span>Sabtu</span><span class="tutup">Tutup</span></div>
-        <div class="jam-row"><span>Minggu &amp; Libur</span><span class="tutup">Tutup</span></div>
-        <div class="status-now">
-          <div class="status-dot" id="sdot"></div>
-          <span id="statusTxt">Memuat status…</span>
-        </div>
-        <div style="margin-top:12px;padding:10px 12px;background:rgba(255,255,255,.07);border-radius:8px;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6">
-          📧 batubesar@gmail.com<br>
-          🏛 Jl. Kelurahan Batu Besar, Batam
-        </div>
-      </div>
+      
     </div>
 
   </main>

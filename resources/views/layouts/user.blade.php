@@ -123,51 +123,12 @@
   {{-- ===== KONTEN UTAMA ===== --}}
   @yield('content')
 
-  {{-- ===== FOOTER ===== --}}
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="f-brand">
-          <a href="{{ route('user.beranda') }}" class="f-logo">
-            <div class="f-logo-circle">BB</div>
-            <div class="f-logo-text">
-              <b>Kelurahan Batu Besar</b>
-              <span>Kec. Nongsa · Kota Batam</span>
-            </div>
-          </a>
-          <p>Melayani masyarakat Kelurahan Batu Besar dengan profesional, terpercaya, dan berlandaskan nilai-nilai keislaman demi Batam yang lebih maju.</p>
-        </div>
-        <div class="f-col">
-          <h4>Navigasi</h4>
-          <ul>
-            <li><a href="{{ route('user.beranda') }}">Beranda</a></li>
-            <li><a href="{{ route('user.profil') }}">Profil</a></li>
-            <li><a href="{{ route('user.data-warga') }}">Data Warga</a></li>
-            <li><a href="{{ route('user.kegiatan') }}">Kegiatan</a></li>
-            <li><a href="{{ route('user.layanan') }}">Saran dan aduan</a></li>
-          </ul>
-        </div>
-        <div class="f-col">
-          <h4>Layanan</h4>
-          <ul>
-            <li><a href="#">Surat Domisili</a></li>
-            <li><a href="#">Pengantar KTP/KK</a></li>
-            <li><a href="#">Pengantar SKCK</a></li>
-            <li><a href="#">Legalisir Dokumen</a></li>
-            <li><a href="#">Surat Keterangan</a></li>
-          </ul>
-        </div>
-        <div class="f-col">
-          <h4>Kontak Kami</h4>
-          <p class="f-contact-item">📍 Kampung Melayu, Kec. Nongsa, Kota Batam 29465</p>
-          <p class="f-contact-item">📧 batubesar@gmail.com</p>
-          <p class="f-contact-item">🕐 Senin–Jumat<br>&nbsp;&nbsp;&nbsp;&nbsp;08.30–16.00 WIB</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© {{ date('Y') }} Kelurahan Batu Besar · Pemerintah Kota Batam</p>
-        <p>Dikembangkan oleh <span>Tim IT Kelurahan Batu Besar</span></p>
-      </div>
+  
+    {{-- ===== FOOTER ===== --}}
+  <footer class="footer-simple">
+    <div class="fs-bottom">
+      <span>© {{ date('Y') }} Kelurahan Batu Besar · Pemerintah Kota Batam</span>
+      <span>📍 Jalan Kelurahan Batu, Batu Besar, Kecamatan Nongsa, Kota Batam, Kepulauan Riau 29465</span>
     </div>
   </footer>
 

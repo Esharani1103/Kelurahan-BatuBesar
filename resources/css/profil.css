@@ -1,0 +1,163 @@
+/* ==============================================
+   profil.css — Halaman Profil Kelurahan
+   Kelurahan Batu Besar
+   ============================================== */
+
+.profil-wrap { max-width: 1200px; margin: 0 auto; padding: 0 0 40px; }
+
+/* ── Label section ── */
+.profil-section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: #0b5c2e;
+  background: #d6f0e2; padding: 4px 14px; border-radius: 100px;
+  margin-bottom: 16px;
+}
+.profil-section-label::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #0b5c2e; flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════
+   HERO
+   ═══════════════════════════════════ */
+.profil-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #061a0e 0%, #0b5c2e 50%, #167a3e 100%);
+  padding: 56px 40px;
+  margin-bottom: 40px;
+}
+.profil-hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.profil-hero-bg::after {
+  content: ''; position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(40,196,100,.2), transparent 70%);
+}
+.profil-hero-inner   { position: relative; z-index: 1; max-width: 680px; }
+.profil-hero-badge   {
+  display: inline-block; font-size: 11.5px; font-weight: 700;
+  color: #ffc72c; background: rgba(255,199,44,.15);
+  border: 1px solid rgba(255,199,44,.3);
+  padding: 4px 14px; border-radius: 100px;
+  letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.profil-hero-title   {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 900;
+  color: #fff; line-height: 1.15; margin: 0 0 16px;
+}
+.profil-hero-title span {
+  background: linear-gradient(90deg, #ffc72c, #ffd700);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.profil-hero-desc {
+  font-size: 15px; color: rgba(255,255,255,.72);
+  line-height: 1.7; margin: 0; max-width: 560px;
+}
+
+/* ═══════════════════════════════════
+   GAMBARAN UMUM
+   ═══════════════════════════════════ */
+.profil-umum {
+  padding: 0 40px 40px;
+  border-bottom: 1px solid #d8e8dc;
+  margin-bottom: 40px;
+}
+.profil-umum-grid {
+  display: grid; grid-template-columns: 1fr 280px; gap: 40px;
+  align-items: start;
+}
+.profil-umum-text h2 {
+  font-size: 20px; font-weight: 800; color: #1a2e20; margin: 0 0 16px;
+}
+.profil-umum-text p  {
+  font-size: 14px; color: #3a5a42; line-height: 1.75; margin-bottom: 12px;
+}
+.profil-umum-text p:last-child { margin-bottom: 0; }
+
+/* Kotak stat kanan */
+.profil-umum-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.profil-stat-item {
+  background: #fff; border: 1.5px solid #d8e8dc;
+  border-radius: 12px; padding: 16px 12px; text-align: center;
+  transition: transform .2s, box-shadow .2s;
+}
+.profil-stat-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(11,92,46,.12); }
+.profil-stat-icon  { font-size: 22px; margin-bottom: 6px; }
+.profil-stat-val   { font-size: 18px; font-weight: 900; color: #0b5c2e; line-height: 1; margin-bottom: 4px; }
+.profil-stat-label { font-size: 11px; color: #6a8a72; font-weight: 600; }
+
+/* ═══════════════════════════════════
+   MENU KARTU PROFIL
+   ═══════════════════════════════════ */
+.profil-menu-section { padding: 0 40px; }
+.profil-menu-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+}
+.profil-card {
+  display: flex; align-items: center; gap: 16px;
+  background: #fff; border: 1.5px solid #d8e8dc;
+  border-radius: 14px; padding: 20px;
+  text-decoration: none; transition: all .25s;
+  position: relative; overflow: hidden;
+}
+.profil-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; border-radius: 4px 0 0 4px;
+  background: linear-gradient(#0b5c2e, #28c464);
+  opacity: 0; transition: opacity .2s;
+}
+.profil-card:hover {
+  border-color: #1fa050;
+  box-shadow: 0 6px 24px rgba(11,92,46,.12);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+.profil-card:hover::before { opacity: 1; }
+
+.profil-card-icon {
+  width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+}
+.profil-card-icon img {
+  width: 36px; height: 36px; object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.profil-card-body { flex: 1; min-width: 0; }
+.profil-card-body h3 {
+  font-size: 15px; font-weight: 800; color: #1a2e20; margin: 0 0 5px;
+}
+.profil-card-body p {
+  font-size: 12.5px; color: #6a8a72; margin: 0; line-height: 1.5;
+}
+.profil-card-arrow {
+  font-size: 18px; color: #d8e8dc; flex-shrink: 0;
+  transition: all .2s; font-weight: 700;
+}
+.profil-card:hover .profil-card-arrow { color: #1fa050; transform: translateX(4px); }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════ */
+@media (max-width: 860px) {
+  .profil-hero        { padding: 40px 24px; }
+  .profil-umum        { padding: 0 24px 32px; }
+  .profil-umum-grid   { grid-template-columns: 1fr; gap: 24px; }
+  .profil-menu-section{ padding: 0 24px; }
+  .profil-menu-grid   { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .profil-umum-stats  { grid-template-columns: repeat(2, 1fr); }
+  .profil-card        { padding: 16px; }
+  .profil-card-icon   { width: 52px; height: 52px; }
+}

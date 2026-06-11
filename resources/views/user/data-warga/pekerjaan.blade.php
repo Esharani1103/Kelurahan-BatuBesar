@@ -1,125 +1,144 @@
 @extends('layouts.user')
+@section('title', 'Data Pekerjaan')
+
+@push('styles')
+    @vite('resources/css/datawarga.css')
+@endpush
 
 @section('content')
+<div class="dw-wrap">
 
-<div class="container py-5">
+    <div class="dw-header">
+        <div class="dw-title-row">
+            <div class="dw-title-bar"></div>
+            <h1 class="dw-title">Data Pekerjaan Kelurahan Batu Besar</h1>
+        </div>
+        <p class="dw-subtitle">Sebaran jenis pekerjaan penduduk per RW/RT.</p>
+    </div>
 
-    <h2 class="text-2xl font-bold mb-4">
-        Data Pekerjaan Keseluruhan
-    </h2>
+    <div class="dw-jumlah-layout">
 
-    <table class="table-auto border-collapse border border-gray-300 w-full text-center mb-10 bg-gray-100">
+        {{-- KIRI --}}
+        <div class="dw-jumlah-left">
 
-        <thead class="bg-gray-200">
-            <tr>
-                <th class="border px-12 py-8">Pekerjaan</th>
-                <th class="border px-12 py-8">Jumlah</th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach($listPekerjaan as $p)
-
-            <tr class="bg-gray-100">
-
-                <td class="border px-12 py-8">
-                    {{ $p }}
-                </td>
-
-                <td class="border px-12 py-8">
-                    {{ $pekerjaan[$p] ?? 0 }} orang
-                </td>
-
-            </tr>
-
-            @endforeach
-
-        </tbody>
-
-    </table>
-
-    {{-- ========================= --}}
-    {{-- PER RW --}}
-    {{-- ========================= --}}
-
-    @for($i = 1; $i <= 23; $i++)
-
-    @php
-        $nomorRw = str_pad($i, 2, '0', STR_PAD_LEFT);
-        $rtData = $perRw[$nomorRw] ?? [];
-    @endphp
-
-    <details class="mb-4">
-
-        <summary class="cursor-pointer px-6 py-4 text-2xl font-bold">
-            RW {{ $nomorRw }}
-        </summary>
-
-        <div class="p-4">
-
-            @if(count($rtData) > 0)
-
-            <table class="table-auto border-collapse border border-gray-300 w-full text-center bg-gray-100">
-
-                <thead class="bg-gray-200">
-
-                    <tr>
-                        <th class="border px-6 py-4">No</th>
-                        <th class="border px-6 py-4">RT</th>
-                        <th class="border px-6 py-4">Pekerjaan</th>
-                        <th class="border px-6 py-4">Jumlah</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @foreach($rtData as $rt => $pekerjaanData)
-
-                        @foreach($listPekerjaan as $p)
-
-                        <tr class="bg-gray-100">
-
-                            <td class="border px-4 py-3">
-                                {{ $loop->iteration }}
-                            </td>
-
-                            <td class="border px-4 py-3">
-                                RT {{ $rt }}
-                            </td>
-
-                            <td class="border px-4 py-3">
-                                {{ $p }}
-                            </td>
-
-                            <td class="border px-4 py-3">
-                                {{ $pekerjaanData[$p] ?? 0 }} orang
-                            </td>
-
+            {{-- Tabel ringkasan --}}
+            <div class="dw-chart-card">
+                <h3 class="dw-chart-title">Ringkasan Keseluruhan</h3>
+                <table class="dw-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">Jenis Pekerjaan</th>
+                            <th>Jumlah</th>
                         </tr>
-
+                    </thead>
+                    <tbody>
+                        @foreach($listPekerjaan as $p)
+                        <tr>
+                            <td style="text-align:left">{{ $p }}</td>
+                            <td class="dw-td-total">{{ number_format($pekerjaan[$p] ?? 0) }} orang</td>
+                        </tr>
                         @endforeach
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
-            @else
-
-            <div class="text-gray-500 italic">
-                Belum ada data
+                    </tbody>
+                </table>
             </div>
 
-            @endif
+            {{-- Accordion per RW --}}
+            <div class="dw-accordion-wrap">
+                @for($i = 1; $i <= 23; $i++)
+                @php
+                    $nomorRw = str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $rtData  = $perRw[$nomorRw] ?? [];
+                    $rwTotal = 0;
+                    foreach($rtData as $rt => $pData) {
+                        foreach($listPekerjaan as $p) $rwTotal += ($pData[$p] ?? 0);
+                    }
+                @endphp
+                <details class="dw-accordion">
+                    <summary class="dw-accordion-summary">
+                        <div class="dw-acc-left">
+                            <span class="dw-acc-badge">RW {{ $nomorRw }}</span>
+                            <span class="dw-acc-count">{{ count($rtData) }} RT</span>
+                        </div>
+                        <span class="dw-acc-total">{{ $rwTotal }} jiwa</span>
+                    </summary>
+                    <div class="dw-accordion-body">
+                        @if(count($rtData) > 0)
+                        <table class="dw-table">
+                            <thead>
+                                <tr><th>No</th><th>RT</th><th>Pekerjaan</th><th>Jumlah</th></tr>
+                            </thead>
+                            <tbody>
+                                @php $no = 1; @endphp
+                                @foreach($rtData as $rt => $pekerjaanData)
+                                    @foreach($listPekerjaan as $p)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>RT {{ $rt }}</td>
+                                        <td style="text-align:left">{{ $p }}</td>
+                                        <td class="dw-td-total">{{ $pekerjaanData[$p] ?? 0 }} orang</td>
+                                    </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                        <p class="dw-empty">Belum ada data untuk RW ini.</p>
+                        @endif
+                    </div>
+                </details>
+                @endfor
+            </div>
 
         </div>
 
-    </details>
+        {{-- KANAN: Diagram --}}
+        <div class="dw-jumlah-right">
+            <div class="dw-chart-card">
+                <h3 class="dw-chart-title">Sebaran Jenis Pekerjaan</h3>
+                <div class="dw-chart-wrap" style="height:320px">
+                    <canvas id="chartPekerjaan"></canvas>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </div>
 
-@endfor
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const pekerjaanLabels = @json($listPekerjaan);
+const pekerjaanValues = @json(array_values(array_map(fn($p) => $pekerjaan[$p] ?? 0, $listPekerjaan)));
+const pekerjaanColors = [
+    '#2486d9','#1fa050','#f0a500','#7c3aed',
+    '#e84393','#0891b2','#e03030','#059669',
+    '#d97706','#6366f1','#ec4899','#14b8a6'
+];
+
+new Chart(document.getElementById('chartPekerjaan'), {
+    type: 'bar',
+    data: {
+        labels: pekerjaanLabels,
+        datasets: [{
+            label: 'Jumlah',
+            data: pekerjaanValues,
+            backgroundColor: pekerjaanColors.slice(0, pekerjaanLabels.length),
+            borderRadius: 6,
+            borderSkipped: false,
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x.toLocaleString('id-ID')} orang` } }
+        },
+        scales: {
+            x: { grid: { color: 'rgba(0,0,0,.06)' }, beginAtZero: true, ticks: { font: { size: 11 } } },
+            y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+        }
+    }
+});
+</script>
 @endsection

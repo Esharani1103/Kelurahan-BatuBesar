@@ -1,0 +1,269 @@
+/* ==============================================
+   datawarga.css — Halaman Data Warga
+   Kelurahan Batu Besar
+   ============================================== */
+
+/* ── Wrapper ── */
+.dw-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ── Header ── */
+.dw-header      { margin-bottom: 28px; }
+.dw-title-row   { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.dw-title-bar   {
+  width: 4px; height: 28px; flex-shrink: 0;
+  background: linear-gradient(#167a3e, #28c464);
+  border-radius: 2px;
+}
+.dw-title       { font-size: 22px; font-weight: 800; color: #1a2e20; margin: 0; }
+.dw-subtitle    { font-size: 13.5px; color: #6a8a72; margin: 0 0 0 14px; }
+
+/* ── Grid ── */
+.dw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ── Kartu ── */
+.dw-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  border-radius: 14px;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .12);
+  transition: transform .25s ease, box-shadow .25s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+}
+.dw-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.15), transparent);
+  pointer-events: none;
+}
+.dw-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .18);
+  text-decoration: none;
+}
+
+/* ── Warna kartu ── */
+.dw-blue   { background: linear-gradient(135deg, #1a6bb5, #2486d9); }
+.dw-yellow { background: linear-gradient(135deg, #c27a00, #f0a500); }
+.dw-green  { background: linear-gradient(135deg, #0b5c2e, #1fa050); }
+.dw-purple { background: linear-gradient(135deg, #5b21b6, #7c3aed); }
+.dw-teal   { background: linear-gradient(135deg, #0e7490, #0891b2); }
+
+/* ── Ikon ── */
+.dw-icon-wrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.dw-icon-wrap img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* gambar jadi putih */
+}
+.dw-emoji-fallback {
+  display: none;
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* ── Teks ── */
+.dw-label {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+.dw-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .72);
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .dw-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .dw-wrap  { padding: 20px 16px; }
+  .dw-grid  { grid-template-columns: 1fr; }
+  .dw-title { font-size: 18px; }
+}
+
+/* ==============================================
+   HALAMAN JUMLAH PENDUDUK
+   ============================================== */
+ 
+/* Layout 2 kolom: tabel kiri, diagram kanan */
+.dw-jumlah-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 20px;
+  align-items: start;
+}
+ 
+/* ── Kolom kiri ── */
+.dw-jumlah-left  { display: flex; flex-direction: column; gap: 16px; }
+ 
+/* Kartu ringkasan */
+.dw-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.dw-summary-item {
+  border-radius: 12px;
+  padding: 16px 12px;
+  text-align: center;
+  color: #fff;
+}
+.dw-summary-blue  { background: linear-gradient(135deg, #1a6bb5, #2486d9); }
+.dw-summary-pink  { background: linear-gradient(135deg, #b5215f, #e84393); }
+.dw-summary-green { background: linear-gradient(135deg, #0b5c2e, #1fa050); }
+.dw-summary-icon  { font-size: 24px; margin-bottom: 6px; }
+.dw-summary-val   { font-size: 22px; font-weight: 900; line-height: 1; }
+.dw-summary-label { font-size: 11.5px; opacity: .8; margin-top: 4px; }
+ 
+/* Accordion RW */
+.dw-accordion-wrap { display: flex; flex-direction: column; gap: 6px; }
+.dw-accordion {
+  background: #fff;
+  border: 1.5px solid #d8e8dc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.dw-accordion[open] { border-color: #1fa050; }
+.dw-accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  user-select: none;
+  background: #f9fbfa;
+  transition: background .15s;
+}
+.dw-accordion-summary::-webkit-details-marker { display: none; }
+.dw-accordion-summary::before {
+  content: '▶';
+  font-size: 10px;
+  color: #6a8a72;
+  margin-right: 8px;
+  transition: transform .2s;
+}
+.dw-accordion[open] .dw-accordion-summary::before { transform: rotate(90deg); }
+.dw-accordion-summary:hover { background: #f0f7f2; }
+.dw-acc-left   { display: flex; align-items: center; gap: 10px; }
+.dw-acc-badge  {
+  background: linear-gradient(135deg, #0b5c2e, #1fa050);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.dw-acc-count  { font-size: 12px; color: #6a8a72; font-weight: 500; }
+.dw-acc-total  { font-size: 13px; font-weight: 700; color: #0b5c2e; }
+.dw-accordion-body { padding: 12px 16px 16px; }
+ 
+/* Tabel di dalam accordion */
+.dw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dw-table th {
+  background: #f0f7f2;
+  padding: 8px 12px;
+  border: 1px solid #d8e8dc;
+  font-weight: 700;
+  color: #3a5a42;
+  text-align: center;
+}
+.dw-table td {
+  padding: 7px 12px;
+  border: 1px solid #e8f0ea;
+  text-align: center;
+  color: #3a5a42;
+}
+.dw-table tr:hover td { background: #f5faf7; }
+.dw-td-total { font-weight: 700; color: #0b5c2e; }
+.dw-empty    { font-size: 13px; color: #aaa; font-style: italic; padding: 8px 0; }
+ 
+/* ── Kolom kanan: diagram ── */
+.dw-jumlah-right { display: flex; flex-direction: column; gap: 0; position: sticky; top: 100px; }
+.dw-chart-card {
+  background: #fff;
+  border: 1.5px solid #d8e8dc;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 16px rgba(11,92,46,.08);
+}
+.dw-chart-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a2e20;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.dw-chart-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: linear-gradient(#0b5c2e, #28c464);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.dw-chart-wrap   { position: relative; }
+.dw-chart-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #6a8a72;
+  margin-top: 12px;
+  gap: 6px;
+}
+.dw-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+ 
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .dw-jumlah-layout { grid-template-columns: 1fr; }
+  .dw-jumlah-right  { position: static; }
+}
+@media (max-width: 580px) {
+  .dw-summary-cards { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .dw-summary-val   { font-size: 18px; }
+}

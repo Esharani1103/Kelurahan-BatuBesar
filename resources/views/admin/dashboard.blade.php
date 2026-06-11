@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -20,16 +16,14 @@
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/bg-logopemko.png') }}" class="h-10">
             <h1 class="text-xl tracking-wide text-blue-700 uppercase" style="font-family: 'Lemon', sans-serif;">
-    Kelurahan Batu Besar
+                Kelurahan Batu Besar
             </h1>
         </div>
-
-        <!-- LOGOUT BUTTON -->
         <div class="flex items-center gap-4">
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="hover:text-red-600 flex items-center gap-1 font-semibold text-gray-600">
+                        class="hover:text-red-600 flex items-center gap-1 font-semibold text-gray-600">
                     <i class="fa-solid fa-right-from-bracket text-lg"></i>
                     <span class="hidden sm:inline">Logout</span>
                 </button>
@@ -38,49 +32,114 @@
     </header>
 
     <!-- MAIN -->
-    <main class="flex-grow">
+    <main class="grow">
         <div class="px-6 py-6">
             <h2 class="text-2xl font-bold mb-6">DASHBOARD ADMIN</h2>
 
-            <div class="bg-white shadow-lg rounded-lg p-24">
-                <div class="flex flex-wrap gap-6">
+            <div class="bg-white shadow-lg rounded-lg p-10">
 
-                    <!-- Card Data Warga -->
+                {{-- ── DATA WARGA & LAYANAN ── --}}
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                    Data & Layanan
+                </p>
+                <div class="flex flex-wrap gap-5 mb-8">
+
                     <a href="{{ route('warga.index') }}"
-                       class="bg-orange-500 text-white rounded-md shadow-md p-6 w-60 hover:bg-orange-600 transition block">
+                       class="bg-orange-500 text-white rounded-md shadow-md p-6 w-56 hover:bg-orange-600 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-users text-2xl"></i>
+                        </div>
                         <div class="text-lg font-bold">Kelola Data Warga</div>
-                        <div class="mt-2 text-sm font-medium">Lihat Detail</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
 
-                    <!-- Card Kegiatan -->
                     <a href="#"
-                       class="bg-purple-600 text-white rounded-md shadow-md p-6 w-60 hover:bg-purple-700 transition block">
+                       class="bg-purple-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-purple-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-calendar-days text-2xl"></i>
+                        </div>
                         <div class="text-lg font-bold">Kelola Kegiatan</div>
-                        <div class="mt-2 text-sm font-medium">Lihat Detail</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
-                    <!-- Card Layanan -->
-                    <a href="{{ route('admin.layanan') }}"
-                       class="bg-blue-500 text-white rounded-md shadow-md p-6 w-60 hover:bg-blue-700 transition block">
-                        <div class="text-lg font-bold">Kelola Layanan</div>
-                        <div class="mt-2 text-sm font-medium">Lihat Detail</div>
-                    </a>
-                </div>
-            </div>
 
+                    <a href="{{ route('admin.layanan') }}"
+                       class="bg-blue-500 text-white rounded-md shadow-md p-6 w-56 hover:bg-blue-600 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-comment-dots text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Saran &amp; Aduan</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
+                    </a>
+
+                </div>
+
+                {{-- ── KONTEN BERANDA ── --}}
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                    Konten Beranda
+                </p>
+                <div class="flex flex-wrap gap-5">
+
+                    <a href="{{ route('admin.aparatur.index') }}"
+                       class="bg-green-700 text-white rounded-md shadow-md p-6 w-56 hover:bg-green-800 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-person-shelter text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Aparatur</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Carousel →</div>
+                    </a>
+
+                    <a href="{{ route('admin.video.index') }}"
+                       class="bg-red-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-red-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-video text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Video Profil</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Video →</div>
+                    </a>
+
+                    <a href="{{ route('admin.ticker.index') }}"
+                       class="bg-yellow-500 text-white rounded-md shadow-md p-6 w-56 hover:bg-yellow-600 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-bullhorn text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Teks Berjalan</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Ticker →</div>
+                    </a>
+
+                    <a href="{{ route('admin.syarat.index') }}"
+                       class="bg-teal-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-teal-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-file-lines text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Syarat Dokumen</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Persyaratan →</div>
+                    </a>
+
+                    <a href="{{ route('admin.statistik.index') }}"
+                       class="bg-indigo-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-indigo-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-chart-bar text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Statistik</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Data →</div>
+                    </a>
+
+                </div>
+
+            </div>
         </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-900 text-white py-1 text-center text-sm">
+    <footer class="bg-gray-900 text-white py-3 text-center text-sm">
         <p class="font-semibold">KELURAHAN BATU BESAR</p>
         <p>Jalan Kelurahan Batu Besar, Kecamatan Nongsa, Kota Batam<br>
-        Kepulauan Riau 29465 | 
-        <a href="mailto:Batubesar@gmail.com"
-   class="underline text-blue-300 hover:text-blue-500">
-   Batubesar@gmail.com
-</a>
+            Kepulauan Riau 29465 |
+            <a href="mailto:Batubesar@gmail.com" class="underline text-blue-300 hover:text-blue-500">
+                Batubesar@gmail.com
+            </a>
         </p>
-        <p class="mt-2">2026 Kelurahan Batu Besar.</p>
+        <p class="mt-1">2026 Kelurahan Batu Besar.</p>
     </footer>
 
 </body>

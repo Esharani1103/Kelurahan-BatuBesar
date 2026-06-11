@@ -11,6 +11,8 @@ export default defineConfig({
                      'resources/css/kelurahan.css',
                      'resources/css/statistik.css',
                      'resources/css/topbar.css',
+                     'resources/css/datawarga.css',
+                     'resources/css/profil.css',
                     ],
             refresh: true,
         }),
