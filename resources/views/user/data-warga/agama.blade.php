@@ -63,27 +63,67 @@
                     </summary>
                     <div class="dw-accordion-body">
                         @if(count($rtData) > 0)
-                        <table class="dw-table">
-                            <thead>
-                                <tr><th>No</th><th>RT</th><th>Agama</th><th>Jumlah</th></tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach($rtData as $rt => $agamaData)
-                                    @foreach($listAgama as $a)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>RT {{ $rt }}</td>
-                                        <td style="text-align:left">{{ $a }}</td>
-                                        <td class="dw-td-total">{{ $agamaData[$a] ?? 0 }} orang</td>
-                                    </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                        <p class="dw-empty">Belum ada data untuk RW ini.</p>
-                        @endif
+
+<div class="grid gap-4">
+
+@foreach($rtData as $rt => $agamaData)
+
+    @php
+        $totalRt = array_sum($agamaData);
+    @endphp
+
+    <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
+
+        <div class="flex justify-between items-center px-4 py-3 bg-gray-100 border-b">
+
+            <div class="font-bold text-green-700">
+                RT {{ $rt }}
+            </div>
+
+            <div class="font-bold text-gray-700">
+                {{ $totalRt }} Orang
+            </div>
+
+        </div>
+
+        <div class="p-4">
+
+            <table class="w-full text-sm">
+
+                <tbody>
+
+                @foreach($listAgama as $namaAgama)
+
+                    @if(($agamaData[$namaAgama] ?? 0) > 0)
+
+                    <tr class="border-b">
+                    <td class="py-2 text-left">
+                    {{ $namaAgama }}
+                    </td>
+
+                <td class="py-2 text-right font-semibold">
+                {{ $agamaData[$namaAgama] }} orang
+                </td>
+                </tr>
+                @endif
+
+                @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+@endforeach
+
+</div>
+
+@else
+<p class="dw-empty">Belum ada data untuk RW ini.</p>
+@endif
                     </div>
                 </details>
                 @endfor

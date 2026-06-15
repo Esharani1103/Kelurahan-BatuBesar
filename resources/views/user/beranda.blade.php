@@ -265,10 +265,10 @@
         <h3>Jam Operasional</h3>
       </div>
       <div class="jam-sidebar">
-        <div class="jam-sidebar-row"><span>Senin – Kamis</span><span class="jam-sidebar-waktu">07.30 – 16.00</span></div>
-        <div class="jam-sidebar-row"><span>Jumat</span><span class="jam-sidebar-waktu">07.30 – 16.30</span></div>
-        <div class="jam-sidebar-row"><span>Sabtu</span><span class="jam-sidebar-tutup">Tutup</span></div>
-        <div class="jam-sidebar-row"><span>Minggu & Libur</span><span class="jam-sidebar-tutup">Tutup</span></div>
+        <div class="jam-sidebar-row"><span>Senin – Kamis</span><span class="jam-sidebar-waktu">08.00 – 16.00</span></div>
+        <div class="jam-sidebar-row"><span>Jumat</span><span class="jam-sidebar-waktu">08.30 – 16.30</span></div>
+        <div class="jam-sidebar-row"><span>Istirahat</span><span class="jam-sidebar-tutup">12.00 - 13.00</span></div>
+        <div class="jam-sidebar-row"><span>Sabtu, Minggu & Libur</span><span class="jam-sidebar-tutup">Tutup</span></div>
         <div class="status-sidebar" id="statusSidebar">
           <div class="status-dot" id="sdot"></div>
           <span id="statusTxt">Memuat status…</span>
@@ -426,30 +426,70 @@ php artisan storage:link
     </div>
    --}}
 
-    {{-- Peta & Jam Kerja --}}
-    <div class="lokasi-peta-jam-grid fi">
-
-    <div class="lokasi-card">
+     {{-- Kegiatan, Peta & Lokasi Kantor (3 kolom sejajar) --}}
+    <div class="peta-jam-grid peta-jam-grid-3 fi">
+ 
+       {{-- Kolom 1: Kegiatan (carousel) --}}
+      <div class="peta-card kegiatan-card">
         <div class="section-header">
           <div class="section-header-left">
             <div class="section-header-icon">
-              <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
             </div>
-            <h2>Kantor Kelurahan Batu Besar</h2>
+            <h2>Kegiatan</h2>
+          </div>
+          <div class="section-header-actions">
+            <a href="{{ route('user.kegiatan') }}" class="btn-sm">📁 Lihat Semua</a>
           </div>
         </div>
-        <iframe src="https://www.google.com/maps?q=Kelurahan+Batu+Besar+Batam&output=embed"
-          loading="lazy"
-          allowfullscreen>
-        </iframe>
-        <div style="padding:12px 16px;background:#f9fbfa;border-top:1px solid var(--border);font-size:12.5px;color:var(--txt2)">
-          📍 Jalan Kelurahan Batu, Batu Besar, Kecamatan Nongsa, Kota Batam, Kepulauan Riau 29465
+ 
+        @if($kegiatan->count() > 0)
+        <div class="kegiatan-carousel" id="kgcWrap">
+          <div class="apc-counter" id="kgcCounter">1 / {{ $kegiatan->count() }}</div>
+          @if($kegiatan->count() > 1)
+            <button class="apc-nav apc-prev" onclick="kgcMove(-1)">‹</button>
+            <button class="apc-nav apc-next" onclick="kgcMove(1)">›</button>
+          @endif
+          <div class="kgc-track" id="kgcTrack">
+            @foreach($kegiatan as $k)
+              <div class="kgc-slide">
+                <div class="kgc-img">
+                  @if($k->gambar)
+                    <img src="{{ Storage::url($k->gambar) }}" alt="{{ $k->judul }}">
+                  @else
+                    <div class="kgc-img-placeholder">📅</div>
+                  @endif
+                </div>
+                <div class="kgc-body">
+                  <div class="kgc-date">📅 {{ $k->tanggal_indo }}</div>
+                  <div class="kgc-title">{{ $k->judul }}</div>
+                  @if($k->deskripsi)
+                    <p class="kgc-desc">{{ Str::limit($k->deskripsi, 80) }}</p>
+                  @endif
+                </div>
+              </div>
+            @endforeach
+          </div>
         </div>
+        @if($kegiatan->count() > 1)
+        <div class="apc-dots" id="kgcDots">
+          @foreach($kegiatan as $i => $k)
+            <button class="apc-dot {{ $i === 0 ? 'on' : '' }}" onclick="kgcGo({{ $i }})"></button>
+          @endforeach
+        </div>
+        @endif
+        @else
+        <div class="kegiatan-empty">
+          <div style="font-size:32px;margin-bottom:8px">📅</div>
+          <p>Belum ada kegiatan terbaru.</p>
+        </div>
+        @endif
       </div>
-
+ 
+      {{-- Kolom 2: Peta Wilayah --}}
       <div class="peta-card">
         <div class="section-header">
-          <div class="section-header">
+          <div class="section-header-left">
             <div class="section-header-icon">
               <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
             </div>
@@ -462,9 +502,24 @@ php artisan storage:link
           📍 Kampung Melayu, Kec. Nongsa, Kota Batam, Kepri 29465
         </div>
       </div>
-      
-
-      
+ 
+      {{-- Kolom 3: Lokasi Kantor --}}
+      <div class="peta-card">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-header-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <h2>Lokasi Kantor</h2>
+          </div>
+        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.4!2d104.1820!3d1.1545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da73a2d7cda9ab%3A0x6a43f1e4a0f5e72e!2sKantor+Kelurahan+Batu+Besar!5e0!3m2!1sid!2sid!4v1700000001"
+                allowfullscreen loading="lazy"></iframe>
+        <div style="padding:12px 16px;background:#f9fbfa;border-top:1px solid var(--border);font-size:12.5px;color:var(--txt2)">
+          🏛 Jl. Kelurahan Batu Besar, Nongsa, Batam 29465
+        </div>
+      </div>
+ 
     </div>
 
   </main>
@@ -507,6 +562,28 @@ function resetApcTimer() {
   apcTimer = setInterval(() => { apcIdx = (apcIdx + 1) % apcTotal; apcRender(); }, 3500);
 }
 resetApcTimer();
+
+
+// ===== KEGIATAN CAROUSEL =====
+let kgcIdx = 0, kgcTimer = null;
+const kgcTotal = {{ $kegiatan->count() }};
+if (kgcTotal > 0) {
+  window.kgcRender = function() {
+    document.getElementById('kgcTrack').style.transform = `translateX(-${kgcIdx * 100}%)`;
+    const counter = document.getElementById('kgcCounter');
+    if (counter) counter.textContent = `${kgcIdx + 1} / ${kgcTotal}`;
+    document.querySelectorAll('#kgcDots .apc-dot').forEach((d, i) => d.classList.toggle('on', i === kgcIdx));
+  };
+  window.kgcGo = function(n) { kgcIdx = n; kgcRender(); resetKgcTimer(); };
+  window.kgcMove = function(dir) { kgcIdx = (kgcIdx + dir + kgcTotal) % kgcTotal; kgcRender(); resetKgcTimer(); };
+  function resetKgcTimer() {
+    clearInterval(kgcTimer);
+    if (kgcTotal > 1) {
+      kgcTimer = setInterval(() => { kgcIdx = (kgcIdx + 1) % kgcTotal; kgcRender(); }, 4500);
+    }
+  }
+  resetKgcTimer();
+}
 
 // ===== STATISTIK COUNTER =====
 function animateCounter(el, target, suffix, duration) {

@@ -13,6 +13,7 @@ export default defineConfig({
                      'resources/css/topbar.css',
                      'resources/css/datawarga.css',
                      'resources/css/profil.css',
+                     'resources/css/kegiatan.css',
                     ],
             refresh: true,
         }),

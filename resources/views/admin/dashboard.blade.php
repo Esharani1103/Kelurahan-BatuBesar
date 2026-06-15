@@ -8,7 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
 </head>
+<style>
+    /* LOGOUT MODAL */
+.modal-overlay{
+    display:none;
+}
 
+.modal-overlay.show{
+    display:flex;
+}
+
+    </style>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
     <!-- HEADER -->
@@ -20,14 +30,17 @@
             </h1>
         </div>
         <div class="flex items-center gap-4">
-            <form action="{{ route('admin.logout') }}" method="POST">
-                @csrf
-                <button type="submit"
-                        class="hover:text-red-600 flex items-center gap-1 font-semibold text-gray-600">
-                    <i class="fa-solid fa-right-from-bracket text-lg"></i>
-                    <span class="hidden sm:inline">Logout</span>
-                </button>
-            </form>
+            <form id="logoutForm" action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+
+            <button
+            type="button"
+            onclick="openLogoutModal()"
+            class="hover:text-red-600 flex items-center gap-1 font-semibold text-gray-600">
+            <i class="fa-solid fa-right-from-bracket text-lg"></i>
+            <span class="hidden sm:inline">Logout</span>
+        </button>
+        </form>
         </div>
     </header>
 
@@ -53,7 +66,7 @@
                         <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
 
-                    <a href="#"
+                    <a href="{{ route('admin.kegiatan.index') }}"
                        class="bg-purple-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-purple-700 transition block">
                         <div class="flex items-center gap-3 mb-2">
                             <i class="fa-solid fa-calendar-days text-2xl"></i>
@@ -61,6 +74,8 @@
                         <div class="text-lg font-bold">Kelola Kegiatan</div>
                         <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
+
+                    
 
                     <a href="{{ route('admin.layanan') }}"
                        class="bg-blue-500 text-white rounded-md shadow-md p-6 w-56 hover:bg-blue-600 transition block">
@@ -142,5 +157,65 @@
         <p class="mt-1">2026 Kelurahan Batu Besar.</p>
     </footer>
 
+<!--modal logout-->
+   <div id="logoutModal"
+     class="modal-overlay fixed inset-0 bg-black/50 z-50 items-center justify-center">
+
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-sm p-6">
+
+        <div class="text-center">
+
+            <div class="text-5xl text-amber-500 mb-3">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+
+            <h2 class="text-xl font-bold text-gray-800">
+                Konfirmasi Logout
+            </h2>
+
+            <p class="text-gray-500 mt-2">
+                Apakah Anda yakin ingin keluar dari dashboard admin?
+            </p>
+
+        </div>
+
+        <div class="flex gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="closeLogoutModal()"
+                class="flex-1 py-2 rounded-lg border border-gray-300 hover:bg-gray-100">
+                Batal
+            </button>
+
+            <button
+                type="button"
+                onclick="submitLogout()"
+                class="flex-1 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 </body>
+<script>
+function openLogoutModal() {
+    document.getElementById('logoutModal')
+        .classList.add('show');
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModal')
+        .classList.remove('show');
+}
+
+function submitLogout() {
+    document.getElementById('logoutForm').submit();
+}
+</script>
+
 </html>

@@ -8,6 +8,7 @@ use App\Models\VideoProfil;
 use App\Models\PengumumanTicker;
 use App\Models\Statistik;
 use App\Models\SyaratDokumen;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,6 +29,8 @@ class UserController extends Controller
             'infoKelurahan' => Statistik::infoKelurahan(),
             'kodepos'       => Statistik::kodeposList(),
             'syarat'        => SyaratDokumen::with('items')->aktif()->get(),
+
+            'kegiatan' => Kegiatan::terbaru()->take(6)->get(),
         ]));
     }
 
@@ -69,7 +72,9 @@ class UserController extends Controller
     public function kegiatan()
     {
         // TODO: 'kegiatan' => Kegiatan::published()->latest()->paginate(12),
-        return view('user.kegiatan', $this->sharedData());
+         return view('user.kegiatan', array_merge($this->sharedData(), [
+            'kegiatanList' => Kegiatan::terbaru()->paginate(9),
+        ]));
     }
 
     public function laporanRt()

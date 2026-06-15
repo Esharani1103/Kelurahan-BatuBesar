@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->date('tanggal');
             $table->string('gambar')->nullable();
+            $table->unsignedTinyInteger('urutan')->default(0);
+            $table->boolean('aktif')->default(true);  
             $table->timestamps();
         });
     }

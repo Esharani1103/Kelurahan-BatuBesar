@@ -45,6 +45,10 @@ Kelola Data Warga
                 class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-xs font-bold transition">
                 <i class="fas fa-upload mr-1"></i> IMPORT EXCEL
             </button>
+            <a href="{{ route('warga.export') }}"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-xs font-bold transition">
+            EXPORT EXCEL
+            </a>
         </form>
     </div>
 </div>
@@ -106,23 +110,23 @@ Kelola Data Warga
                         <tr class="text-gray-700 border-b">
                             <th class="p-3 border-r">No</th>
                             <th class="p-3 border-r text-center">GRUP KK</th>
-                            <th class="p-3 border-r min-w-[120px]">No KK</th>
-                            <th class="p-3 border-r min-w-[120px]">NIK</th>
-                            <th class="p-3 border-r min-w-[180px]">Nama Lengkap</th>
+                            <th class="p-3 border-r min-w-30">No KK</th>
+                            <th class="p-3 border-r min-w-30">NIK</th>
+                            <th class="p-3 border-r min-w-45">Nama Lengkap</th>
                             <th class="p-3 border-r">L/P</th>
-                            <th class="p-3 border-r min-w-[100px]">Tempat Lahir</th>
-                            <th class="p-3 border-r min-w-[90px]">Tgl Lahir</th>
+                            <th class="p-3 border-r min-w-25">Tempat Lahir</th>
+                            <th class="p-3 border-r min-w-22.5">Tgl Lahir</th>
                             <th class="p-3 border-r text-center">Umur</th>
                             <th class="p-3 border-r">Agama</th>
                             <th class="p-3 border-r">Warga</th>
-                            <th class="p-3 border-r min-w-[120px]">Pendidikan</th>
-                            <th class="p-3 border-r min-w-[120px]">Pekerjaan</th>
-                            <th class="p-3 border-r min-w-[200px]">Alamat Lengkap</th>
+                            <th class="p-3 border-r min-w-30">Pendidikan</th>
+                            <th class="p-3 border-r min-w-30">Pekerjaan</th>
+                            <th class="p-3 border-r min-w-50">Alamat Lengkap</th>
                             <th class="p-3 border-r">RT/RW</th>
-                            <th class="p-3 border-r min-w-[100px]">Status Kawin</th>
-                            <th class="p-3 border-r min-w-[120px]">Status Hubungan</th>
-                            <th class="p-3 border-r min-w-[180px]">Kepala Keluarga</th>
-                            <th class="p-3 border-r min-w-[150px] bg-yellow-50 text-orange-700">Keterangan</th>
+                            <th class="p-3 border-r min-w-25">Status Kawin</th>
+                            <th class="p-3 border-r min-w-30">Status Hubungan</th>
+                            <th class="p-3 border-r min-w-45">Kepala Keluarga</th>
+                            <th class="p-3 border-r min-w-37.5 bg-yellow-50 text-orange-700">Keterangan</th>
                             <th class="p-3 text-center sticky right-0 bg-gray-100 shadow-l">Aksi</th>
                         </tr>
                     </thead>
@@ -240,7 +244,16 @@ Kelola Data Warga
                         </div>
                         <div>
                             <label for="edit_status_hubungan" class="text-[10px] font-bold text-gray-400 uppercase">Status Hubungan</label>
-                            <input type="text" name="status_hubungan" id="edit_status_hubungan" class="input-box">
+                            <select name="status_hubungan" id="edit_status_hubungan" class="input-box bg-white">
+                            <option value="KEPALA KELUARGA">KEPALA KELUARGA</option>
+                            <option value="ISTRI">ISTRI</option>
+                            <option value="ANAK">ANAK</option>
+                            <option value="MENANTU">MENANTU</option>
+                            <option value="CUCU">CUCU</option>
+                            <option value="ORANG TUA">ORANG TUA</option>
+                            <option value="MERTUA">MERTUA</option>
+                            <option value="FAMILI LAIN">FAMILI LAIN</option>
+                            </select>
                         </div>
                     </div>
                     <!-- kolom 2-->
@@ -262,9 +275,17 @@ Kelola Data Warga
                                     <option value="PEREMPUAN">PEREMPUAN</option>
                                 </select>
                             </div>
-                            <div>
-                                <label for="edit_agama" class="text-[10px] font-bold text-gray-400 uppercase">Agama</label>
-                                <input type="text" name="agama" id="edit_agama" class="input-box" value="ISLAM">
+                            <!-- agama-->
+                             <div>
+                             <label for="edit_agama" class="text-[10px] font-bold text-gray-400 uppercase">Agama</label>
+                            <select name="agama" id="edit_agama" class="input-box bg-white">
+                            <option value="Islam">ISLAM</option>
+                            <option value="Kristen">KRISTEN</option>
+                            <option value="Katolik">KATOLIK</option>
+                            <option value="Hindu">HINDU</option>
+                            <option value="Buddha">BUDDHA</option>
+                            <option value="Konghucu">KONGHUCU</option>
+                            </select>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2 border-2 border-orange-100 p-2 rounded-lg">
@@ -308,12 +329,47 @@ Kelola Data Warga
                             <input type="text" name="keterangan" id="edit_keterangan" class="input-box border-orange-200" placeholder="Catatan admin">
                         </div>
                         <div>
-                            <label for="edit_jenis_pekerjaan" class="text-[10px] font-bold text-gray-400 uppercase">Pekerjaan</label>
-                            <input type="text" name="jenis_pekerjaan" id="edit_jenis_pekerjaan" class="input-box">
+                        <label for="text-[10px] font-bold text-gray-400 uppercase">
+                        Pekerjaan
+                        </label>
+
+                        <select name="jenis_pekerjaan" id="edit_jenis_pekerjaan" class="input-box bg-white" onchange="toggleEditPekerjaanLain(this)">
+
+                        <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
+                        <option value="PELAJAR/MAHASISWA">PELAJAR/MAHASISWA</option>
+                        <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
+                        <option value="WIRASWASTA">WIRASWASTA</option>
+                        <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
+                        <option value="PNS">PNS</option>
+                        <option value="TNI">TNI</option>
+                        <option value="POLRI">POLRI</option>
+                        <option value="GURU">GURU</option>
+                        <option value="PEGAWAI BUMN">PEGAWAI BUMN</option>
+                        <option value="TENAGA KESEHATAN">TENAGA KESEHATAN</option>
+                        <option value="BURUH">BURUH</option>
+                        <option value="PENSIUNAN">PENSIUNAN</option>
+                        <option value="LAINNYA">LAINNYA</option>
+
+                        </select>
+                        <div id="editPekerjaanLainBox" class="hidden mt-2">
+                        <input type="text" name="pekerjaan_lain" id="edit_pekerjaan_lain" class="input-box"  placeholder="Masukkan pekerjaan">
+                        </div>
                         </div>
                         <div>
                         <label for="edit_pendidikan" class="text-[10px] font-bold text-gray-400 uppercase">Pendidikan</label>
-                        <input type="text" name="pendidikan" id="edit_pendidikan" class="input-box">
+                        <select name="pendidikan" id="edit_pendidikan" class="input-box bg-white">
+                        <option value="TIDAK SEKOLAH">TIDAk SEKOLAH</option>
+                        <option value="TK">TK</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                        </select>
                         </div>
 
                         <div>
@@ -418,10 +474,17 @@ Kelola Data Warga
                             </label>
                             <input type="number" name="rw" id="rw" class="input-box" required>
                         </div>
-                        <div>
-                            <label for="status_hubungan" class="text-[10px] font-bold text-gray-400 uppercase">Status Hubungan</label>
-                            <input type="text" name="status_hubungan" id="status_hubungan" class="input-box">
-                        </div>
+                        <!--status hubungan-->
+                        <select name="status_hubungan" id="status_hubungan" class="input-box bg-white">
+                        <option value="KEPALA KELUARGA">KEPALA KELUARGA</option>
+                        <option value="ISTRI">ISTRI</option>
+                        <option value="ANAK">ANAK</option>
+                        <option value="MENANTU">MENANTU</option>
+                        <option value="CUCU">CUCU</option>
+                        <option value="ORANG TUA">ORANG TUA</option>
+                        <option value="MERTUA">MERTUA</option>
+                        <option value="FAMILI LAIN">FAMILI LAIN</option>
+                        </select>
                     </div>
                     <!-- kolom 2 -->
                     <div class="space-y-4">
@@ -442,11 +505,23 @@ Kelola Data Warga
                                     <option value="PEREMPUAN">PEREMPUAN</option>
                                 </select>
                             </div>
+                            <!--agama-->
                             <div>
-                                <label  for="agama" class="text-[10px] font-bold text-gray-400 uppercase">Agama</label>
-                                <input type="text" name="agama" id="agama" class="input-box" value="ISLAM">
+                            <label for="agama" class="text-[10px] font-bold text-gray-400 uppercase">
+                            Agama
+                            </label>
+
+                            <select name="agama" id="agama" class="input-box bg-white">
+                            <option value="ISLAM">ISLAM</option>
+                            <option value="KRISTEN">KRISTEN</option>
+                            <option value="KATOLIK">KATOLIK</option>
+                            <option value="HINDU">HINDU</option>
+                            <option value="BUDDHA">BUDDHA</option>
+                            <option value="KONGHUCU">KONGHUCU</option>
+                            </select>
                             </div>
                             </div>
+
                             <div class="grid grid-cols-2 gap-2 border-2 border-orange-100 p-2 rounded-lg">
                             <div>
                                 <label for="tanggal_lahir" class="text-[10px] font-bold text-orange-500 uppercase">Tanggal Lahir</label>
@@ -488,13 +563,58 @@ Kelola Data Warga
                             <label for="keterangan" class="text-[10px] font-bold text-orange-600 uppercase">Keterangan Tambahan</label>
                             <input name="keterangan" type="text" id="keterangan" class="input-box border-orange-200" placeholder="Catatan admin">
                         </div>
+                        <!--PEKERJAAN-->
                         <div>
-                            <label for="jenis_pekerjaan" class="text-[10px] font-bold text-gray-400 uppercase">Pekerjaan</label>
-                            <input name="jenis_pekerjaan" type="text" id="jenis_pekerjaan" class="input-box">
+                        <label for="jenis_pekerjaan" class="text-[10px] font-bold text-gray-400 uppercase">
+                        Pekerjaan
+                        </label>
+
+                        <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="input-box bg-white" onchange="togglePekerjaanLain(this)">
+                        <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
+                        <option value="PELAJAR/MAHASISWA">PELAJAR/MAHASISWA</option>
+                        <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
+                        <option value="WIRASWASTA">WIRASWASTA</option>
+                        <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
+                        <option value="PNS">PNS</option>
+                        <option value="TNI">TNI</option>
+                        <option value="POLRI">POLRI</option>
+                        <option value="GURU">GURU</option>
+                        <option value="PEGAWAI BUMN">PEGAWAI BUMN</option>
+                        <option value="TENAGA KESEHATAN">TENAGA KESEHATAN</option>
+                        <option value="NELAYAN">NELAYAN</option>
+                        <option value="BURUH">BURUH</option>
+                        <option value="PENSIUNAN">PENSIUNAN</option>
+                        <option value="LAINNYA">LAINNYA</option>
+                        </select>
+                        <div id="pekerjaanLainBox" class="hidden mt-2">
+                        <input
+                        type="text"
+                        name="pekerjaan_lain"
+                        id="pekerjaan_lain"
+                        class="input-box"
+                        placeholder="Masukkan pekerjaan">
                         </div>
+                        </div>
+
+                        <!--Pendidikan-->
                         <div>
-                        <label for="pendidikan" class="text-[10px] font-bold text-gray-400 uppercase">Pendidikan</label>
-                        <input name="pendidikan" type="text" id="pendidikan" class="input-box">
+                        <label for="pendidikan" class="text-[10px] font-bold text-gray-400 uppercase">
+                        Pendidikan
+                        </label>
+
+                        <select name="pendidikan" id="pendidikan" class="input-box bg-white">
+                        <option value="TIDAK SEKOLAH">TIDAK SEKOLAH</option>
+                        <option value="TK">TK</option>
+                        <option value="SD">SD</option>
+                        <option value="SMP">SMP</option>
+                        <option value="SMA">SMA</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="D3">D3</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                        </select>
                         </div>
 
                         <div>
@@ -539,6 +659,26 @@ function toggleModal() {
     modal.classList.toggle('flex');
 }
 
+function togglePekerjaanLain(select)
+{
+    const box = document.getElementById('pekerjaanLainBox');
+
+    if (select.value === 'LAINNYA') {
+        box.classList.remove('hidden');
+    } else {
+        box.classList.add('hidden');
+    }
+}
+function toggleEditPekerjaanLain(select)
+{
+    const box = document.getElementById('editPekerjaanLainBox');
+
+    if (select.value === 'LAINNYA') {
+        box.classList.remove('hidden');
+    } else {
+        box.classList.add('hidden');
+    }
+}
 let timeout = null;
 
 document.getElementById('searchInput').addEventListener('keyup', function () {
@@ -644,7 +784,43 @@ document.querySelectorAll('.btn-close-delete').forEach(btn => {
             document.getElementById('edit_kewarganegaraan').value = warga.kewarganegaraan ?? '';
             document.getElementById('edit_keterangan').value = warga.keterangan ?? '';
             document.getElementById('edit_pendidikan').value = warga.pendidikan ?? '';
-            document.getElementById('edit_jenis_pekerjaan').value = warga.jenis_pekerjaan ?? '';
+            const daftarPekerjaan = [
+            'BELUM/TIDAK BEKERJA',
+            'PELAJAR/MAHASISWA',
+            'MENGURUS RUMAH TANGGA',
+            'WIRASWASTA',
+            'KARYAWAN SWASTA',
+            'PNS',
+            'TNI',
+            'POLRI',
+            'GURU',
+            'PEGAWAI BUMN',
+            'TENAGA KESEHATAN',
+            'BURUH',
+            'PENSIUNAN'
+            ];
+
+            if (daftarPekerjaan.includes(warga.jenis_pekerjaan)) {
+
+            document.getElementById('edit_jenis_pekerjaan').value =
+            warga.jenis_pekerjaan;
+
+            document.getElementById('edit_pekerjaan_lain').value = '';
+
+            document.getElementById('editPekerjaanLainBox')
+            .classList.add('hidden');
+
+            } else {
+
+        document.getElementById('edit_jenis_pekerjaan').value =
+        'LAINNYA';
+
+        document.getElementById('edit_pekerjaan_lain').value =
+        warga.jenis_pekerjaan ?? '';
+
+        document.getElementById('editPekerjaanLainBox')
+        .classList.remove('hidden');
+    }
 
             // KELUARGA
             document.getElementById('edit_no_kk').value = keluarga?.no_kk ?? '';

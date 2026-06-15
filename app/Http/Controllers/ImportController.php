@@ -34,10 +34,14 @@ class ImportController extends Controller
     $lastNoKK = null;
 
     foreach ($spreadsheet->getActiveSheet()->toArray() as $i => $row) {
-        
+         if (empty(array_filter($row))) {
+        continue;
+    }
     
 
     if ($i < 4) continue; // skip header
+
+    
     
 
     // ========================
@@ -54,9 +58,11 @@ class ImportController extends Controller
     }
     // kalau tetap kosong maka gagal
 
-    if (!$nik && !$no_kk) {
-        continue;
-    }
+    $nama = trim($row[4] ?? '');
+
+    if (!$nik || !$nama) {
+    continue;
+}
     // ========================
     // AMBIL RT & RW
     // ========================
@@ -67,18 +73,23 @@ class ImportController extends Controller
     if ($nomorRt && $nomorRw) {
 
     $rw = Rw::where('nomor_rw', $nomorRw)->first();
-
+    
     if (!$rw) {
-        $gagal++;
-        continue;
-    }
+    dd([
+        'baris' => $i,
+        'pesan' => 'RW tidak ditemukan',
+        'rw_excel' => $nomorRw,
+        'nik' => $nik,
+        'nama' => $nama,
+    ]);
+}
     $rt = Rt::where('nomor_rt', $nomorRt)
             ->where('id_rw', $rw->id_rw)
             ->first();
 
-    if (!$rt) {
-        $gagal++;
-        continue;
+    if (!$rw) {
+    $gagal++;
+    continue;
     }
     // simpan RT terakhir per KK
     $rtPerKK[$no_kk] = $rt->id_rt;
@@ -86,8 +97,13 @@ class ImportController extends Controller
 
    // kalau kosong, pakai RT sebelumnya
    $idRt = $rtPerKK[$no_kk] ?? null;
+   
+   if (!$rt) {
+    $gagal++;
+    continue;
+    }
 
-   if (!$idRt) continue;
+   
 
     $statusHubungan = strtolower(trim($row[16] ?? ''));
 

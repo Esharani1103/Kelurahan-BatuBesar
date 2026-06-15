@@ -10,6 +10,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\WargaController;
 
 
+
 // ── User Controllers ──────────────────────────────────────────
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ProfilController;
@@ -24,15 +25,13 @@ use App\Http\Controllers\Admin\VideoProfilController;
 use App\Http\Controllers\Admin\TickerController;
 use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\Admin\SyaratDokumenController;
+use App\Http\Controllers\Admin\KegiatanController;
 
 
 // =============================================================
 //  PUBLIK
 // =============================================================
-Route::get('/', function () {
-    return 'laravel jalan';
-});
-
+Route::redirect('/', '/user/beranda');
 
 // =============================================================
 //  AUTH ADMIN
@@ -71,6 +70,9 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     // ── Import Excel ──────────────────────────────────────────
     Route::post('/warga/import', [ImportController::class, 'import'])->name('warga.import');
+
+    // ekspor excel
+    Route::get('/admin/warga/export', [WargaController::class, 'export'])->name('warga.export');
 
     // ── Layanan / Saran & Aduan (sudah ada) ───────────────────
     Route::get('/layanan',              [AdminLayananController::class, 'index'])   ->name('admin.layanan');
@@ -130,6 +132,20 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
              'destroy' => 'admin.syarat.destroy',
          ]);
 
+    // ── Kegiatan ──────────────────────────────────────────────
+    // Urutan & toggle HARUS sebelum resource
+    Route::post ('/kegiatan/urutan',           [KegiatanController::class, 'urutan'])->name('admin.kegiatan.urutan');
+    Route::patch('/kegiatan/{kegiatan}/toggle',[KegiatanController::class, 'toggle'])->name('admin.kegiatan.toggle');
+    // create & edit tidak dipakai — semua via modal di index
+    Route::resource('kegiatan', KegiatanController::class)
+         ->except(['show', 'create', 'edit'])
+         ->names([
+             'index'   => 'admin.kegiatan.index',
+             'store'   => 'admin.kegiatan.store',
+             'update'  => 'admin.kegiatan.update',
+             'destroy' => 'admin.kegiatan.destroy',
+         ]);
+         
 }); // end middleware auth:admin
 
 

@@ -60,6 +60,24 @@
 .tb-search svg { width: 13px; height: 13px; stroke: #fff; fill: none; opacity: .7; flex-shrink: 0; }
 .tb-sun { font-size: 20px; line-height: 1; animation: spinSlow 12s linear infinite; }
 
+/* Tombol Login Admin */
+.tb-admin-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+  border-radius: 20px; padding: 5px 12px;
+  color: #fff; font-size: 12px; font-weight: 700;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: all .2s;
+}
+.tb-admin-btn:hover { background: rgba(255,255,255,.28); color: #fff; text-decoration: none; }
+.tb-admin-btn svg { width: 14px; height: 14px; stroke: #fff; fill: none; flex-shrink: 0; }
+.tb-admin-btn span { line-height: 1; }
+ 
+@media (max-width: 860px) {
+  .tb-admin-btn span { display: none; }
+  .tb-admin-btn      { padding: 6px; border-radius: 50%; }
+}
+
 /* ===== NAVBAR ===== */
 #navbar {
   background: rgba(255,255,255,.97);

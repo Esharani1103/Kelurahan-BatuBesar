@@ -63,24 +63,69 @@
                     </summary>
                     <div class="dw-accordion-body">
                         @if(count($rtData) > 0)
-                        <table class="dw-table">
-                            <thead>
-                                <tr><th>No</th><th>RT</th><th>Pekerjaan</th><th>Jumlah</th></tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @foreach($rtData as $rt => $pekerjaanData)
-                                    @foreach($listPekerjaan as $p)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>RT {{ $rt }}</td>
-                                        <td style="text-align:left">{{ $p }}</td>
-                                        <td class="dw-td-total">{{ $pekerjaanData[$p] ?? 0 }} orang</td>
-                                    </tr>
-                                    @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
+
+                        <div class="grid gap-4">
+                            @foreach($rtData as $rt => $pekerjaanData)
+
+                            @php
+                            $totalRt = 0;
+
+                            foreach($listPekerjaan as $p) {
+                            $totalRt += ($pekerjaanData[$p] ?? 0);
+                            }
+                            @endphp
+
+                        <div class="bg-white border rounded-xl shadow-sm overflow-hidden">
+
+                        <div class="flex justify-between items-center px-4 py-3 bg-gray-100 border-b">
+
+                        <div class="font-bold text-green-700">
+                        RT {{ $rt }}
+                        </div>
+
+                        <div class="font-bold text-gray-700">
+                        {{ $totalRt }} Jiwa
+                        </div>
+
+                    </div>
+
+        <div class="p-4">
+
+            <table class="w-full text-sm">
+
+                <tbody>
+
+                    @foreach($listPekerjaan as $p)
+
+                    @if(($pekerjaanData[$p] ?? 0) > 0)
+
+                    <tr class="border-b">
+
+                        <td class="py-2 text-left">
+                            {{ $p }}
+                        </td>
+
+                        <td class="py-2 text-right font-semibold">
+                            {{ $pekerjaanData[$p] }} orang
+                        </td>
+
+                    </tr>
+
+                    @endif
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+@endforeach
+
+</div>
                         @else
                         <p class="dw-empty">Belum ada data untuk RW ini.</p>
                         @endif

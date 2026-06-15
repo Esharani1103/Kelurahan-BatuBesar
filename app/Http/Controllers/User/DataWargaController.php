@@ -33,25 +33,42 @@ class DataWargaController extends Controller
 
         // per rw & rt
         $perRw = [];
-        foreach ($warga as $w)
 
-            $rw = $w->keluarga->rt->rw->nomor_rw ?? '00';
-            $rt = $w->keluarga->rt->nomor_rt ?? '00';
+foreach ($warga as $w) {
 
-            if (!isset($perRw[$rw][$rw])) {
-                $perRw[$rw][$rt] = [
-                    'laki' => 0,
-                    'perempuan' => 0,
-                    'total' => 0,
-                ];
-            }
+    $rw = str_pad(
+        $w->keluarga->rt->rw->nomor_rw ?? '00',
+        2,
+        '0',
+        STR_PAD_LEFT
+    );
 
-            if ($w->jenis_kelamin == "LAKI-LAKI") {
-                $perRw[$rw][$rt]['laki']++;
-            }
-            if ($w->jenis_kelamin == "PEREMPUAN") {
-                $perRw[$rw][$rt]['perempuan']++;
-            }
+    $rt = str_pad(
+        $w->keluarga->rt->nomor_rt ?? '00',
+        2,
+        '0',
+        STR_PAD_LEFT
+    );
+
+    if (!isset($perRw[$rw][$rt])) {
+
+        $perRw[$rw][$rt] = [
+            'laki' => 0,
+            'perempuan' => 0,
+            'total' => 0,
+        ];
+    }
+
+    if ($w->jenis_kelamin == 'LAKI-LAKI') {
+        $perRw[$rw][$rt]['laki']++;
+    }
+
+    if ($w->jenis_kelamin == 'PEREMPUAN') {
+        $perRw[$rw][$rt]['perempuan']++;
+    }
+
+    $perRw[$rw][$rt]['total']++;
+}
 
     return view('user.data-warga.jumlah', compact('total','laki','perempuan', 'perRw'));
     }
@@ -184,6 +201,7 @@ class DataWargaController extends Controller
         'user.data-warga.agama',
         compact('agama', 'perRw', 'listAgama')
     );
+    
 }
 
     // pendidikan
@@ -296,21 +314,22 @@ else {
     $warga = Warga::with('keluarga.rt.rw')->get();
 
     $listPekerjaan = [
-        'Belum/Tidak Bekerja',
-        'Pelajar/Mahasiswa',
-        'Mengurus Rumah Tangga',
-        'Wiraswasta',
-        'Karyawan Swasta',
-        'PNS',
-        'TNI',
-        'POLRI',
-        'Guru',
-        'Petani',
-        'Nelayan',
-        'Buruh',
-        'Pensiunan',
-        'Lainnya',
-    ];
+    'BELUM/TIDAK BEKERJA',
+    'PELAJAR/MAHASISWA',
+    'MENGURUS RUMAH TANGGA',
+    'WIRASWASTA',
+    'KARYAWAN SWASTA',
+    'PNS',
+    'TNI',
+    'POLRI',
+    'GURU',
+    'PEGAWAI BUMN',
+    'TENAGA KESEHATAN',
+    'NELAYAN',
+    'BURUH',
+    'PENSIUNAN',
+    'LAINNYA',
+];
 
     // ======================
     // INISIALISASI TOTAL
@@ -329,25 +348,25 @@ else {
         $raw = strtoupper(trim($w->jenis_pekerjaan ?? ''));
 
     if (str_contains($raw, 'BELUM')) {
-    $namaPekerjaan = 'Belum/Tidak Bekerja';
+    $namaPekerjaan = 'BELUM/TIDAK BEKERJA';
     }
     elseif (str_contains($raw, 'PELAJAR') || str_contains($raw, 'MAHASISWA')) {
-    $namaPekerjaan = 'Pelajar/Mahasiswa';
+    $namaPekerjaan = 'PELAJAR/MAHASISWA';
     }
     elseif (
     str_contains($raw, 'RUMAH TANGGA') ||
     str_contains($raw, 'IRT')
     ) {
-    $namaPekerjaan = 'Mengurus Rumah Tangga';
+    $namaPekerjaan = 'MENGURUS RUMAH TANGGA';
     }
     elseif (str_contains($raw, 'WIRASWASTA')) {
-    $namaPekerjaan = 'Wiraswasta';
+    $namaPekerjaan = 'WIRASWASTA';
     }
     elseif (
     str_contains($raw, 'KARYAWAN') ||
     str_contains($raw, 'SWASTA')
     ) {
-    $namaPekerjaan = 'Karyawan Swasta';
+    $namaPekerjaan = 'KARYAWAN SWASTA';
     }
     elseif (
     str_contains($raw, 'PNS') ||
@@ -362,26 +381,40 @@ else {
     $namaPekerjaan = 'POLRI';
     }
     elseif (str_contains($raw, 'GURU')) {
-    $namaPekerjaan = 'Guru';
+    $namaPekerjaan = 'GURU';
     }
-    elseif (str_contains($raw, 'PETANI')) {
-    $namaPekerjaan = 'Petani';
+    elseif (str_contains($raw, 'PEGAWAI BUMN')) {
+    $namaPekerjaan = 'PEGAWAI BUMN';
+    }
+    elseif (str_contains($raw, 'TENAGA KESEHATAN')) {
+    $namaPekerjaan = 'TENAGA KESEHATAN';
     }
     elseif (str_contains($raw, 'NELAYAN')) {
-    $namaPekerjaan = 'Nelayan';
+    $namaPekerjaan = 'NELAYAN';
     }
     elseif (str_contains($raw, 'BURUH')) {
-    $namaPekerjaan = 'Buruh';
+    $namaPekerjaan = 'BURUH';
 }
 elseif (str_contains($raw, 'PENSIUN')) {
-    $namaPekerjaan = 'Pensiunan';
+    $namaPekerjaan = 'PENSIUNAN';
 }
 else {
-    $namaPekerjaan = 'Lainnya';
+    $namaPekerjaan = 'LAINNYA';
 }
 
-        $rw = $w->keluarga->rt->rw->nomor_rw ?? '00';
-        $rt = $w->keluarga->rt->nomor_rt ?? '00';
+        $rw = str_pad(
+        $w->keluarga->rt->rw->nomor_rw ?? '00',
+        2,
+        '0',
+        STR_PAD_LEFT
+        );
+
+        $rt = str_pad(
+        $w->keluarga->rt->nomor_rt ?? '00',
+        2,
+        '0',
+        STR_PAD_LEFT
+        );
 
         // ======================
         // TOTAL KESELURUHAN

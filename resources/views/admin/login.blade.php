@@ -11,8 +11,22 @@
     <!-- Font Awesome for eye icon -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+          <style>
+            /* Hilangkan ikon show password bawaan Edge */
+            input[type="password"]::-ms-reveal,
+            input[type="password"]::-ms-clear {
+                display: none;
+            }
+
+            /* Versi Chromium Edge terbaru */
+            ::-webkit-credentials-auto-fill-button,
+            ::-webkit-strong-password-auto-fill-button {
+                visibility: hidden;
+                pointer-events: none;
+            }
+            </style>
 </head>
-<body class="min-h-[100dvh] flex items-center justify-center bg-no-repeat bg-center sm:bg-top bg-cover"
+<body class="min-h-dvh flex items-center justify-center bg-no-repeat bg-center sm:bg-top bg-cover"
       style="background-image: url('/images/bg-kelurahan.png')">
 
     <div class="absolute inset-0 bg-black/50 sm:bg-black/40"></div> <!-- lapisan gelap -->
@@ -36,45 +50,60 @@
                 type="text"
                 name="username"
                 required
-                class="w-full p-1 sm:p-1 border rounded mb-4 focus:outline-none focus:ring focus:ring-blue-300"
+                class="w-full px-3 py-2 border rounded mb-4 focus:outline-none focus:ring focus:ring-blue-300"
             >
 
             <label class="font-semibold text-sm">Password</label>
             <div class="relative mb-8">
+
                 <input
                     type="password"
                     name="password"
                     id="password"
                     required
-                    class="w-full p-1 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+                    class="w-full h-11 px-3 pr-12 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                 >
-                <i id="togglePassword"
-                    class="fa-solid fa-eye-slash absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"></i>
+
+                <button
+                    type="button"
+                    onclick="togglePassword()"
+                    class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500">
+
+                    <i id="eyeIcon" class="fa-solid fa-eye-slash"></i>
+
+                </button>
+
             </div>
 
-            <button
-                type="submit"
-                class="w-full bg-blue-700 hover:bg-blue-500 text-white py-2 sm:py-2.5 rounded font-semibold">
-                Login
-            </button>
-        </form>
-    </div>
+        <button
+            type="submit"
+            class="w-full bg-blue-700 hover:bg-blue-500 text-white py-2 sm:py-2.5 rounded font-semibold">
+            Login
+        </button>
+                </form>
+            </div>
 
 <script>
-    const eye = document.querySelector("#togglePassword");
-    const pwd = document.querySelector("#password");
+    function togglePassword() {
 
-    eye.onclick = () => {
-        if (pwd.type === "password") {
-            pwd.type = "text";
-            eye.classList.remove("fa-eye-slash");
-            eye.classList.add("fa-eye");
-        } else {
-            pwd.type = "password";
-            eye.classList.remove("fa-eye");
-            eye.classList.add("fa-eye-slash");
-        }
-    };
+    const pwd = document.getElementById('password');
+    const eye = document.getElementById('eyeIcon');
+
+    if (pwd.type === 'password') {
+
+        pwd.type = 'text';
+
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+
+    } else {
+
+        pwd.type = 'password';
+
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+    }
+}
 </script>
 
 </body>
