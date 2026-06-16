@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 @section('title') Kelola Video Profil @endsection
 @section('content')
+
 <div class="container py-8">
+    
 
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-bold">Video Profil</h1>
@@ -54,7 +56,7 @@
                         Aktifkan
                     </button>
                 @endunless
-                <button onclick="konfirmasiHapus({{ $v->id }}, @json($v->judul))"
+                <button onclick='konfirmasiHapus({{ $v->id }}, @json($v->judul))'
                         class="bg-red-500 text-white px-3 py-1.5 rounded text-xs font-bold hover:bg-red-600">
                     Hapus
                 </button>
@@ -168,9 +170,13 @@ function switchTab(tab) {
     else      document.getElementById('urlYoutube').value = '';
 }
 
+
 function konfirmasiHapus(id, nama) {
+    console.log('Klik hapus', id, nama);
+
     document.getElementById('hapusNama').textContent = nama;
-    document.getElementById('hapusForm').action      = `/admin/video/${id}`;
+    document.getElementById('hapusForm').action = `/admin/video/${id}`;
+
     openModal('hapus');
 }
 

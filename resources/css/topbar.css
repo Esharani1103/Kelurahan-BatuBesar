@@ -13,10 +13,10 @@
 .tb-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
 .tb-logo-seal {
   width: 34px; height: 34px; border-radius: 50%;
-  background: radial-gradient(circle, var(--gold2), var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 12px; color: var(--g1);
-  box-shadow: 0 0 0 3px rgba(255,199,44,.3); flex-shrink: 0;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px rgba(255,199,44,.3);
+  flex-shrink: 0;
+  background: #fff; /* fallback jika logo transparan */
 }
 .tb-logo-text { line-height: 1.1; }
 .tb-logo-text b    { display: block; font-size: 13px; font-weight: 800; color: #fff; letter-spacing: .01em; }

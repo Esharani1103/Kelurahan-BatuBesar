@@ -14,6 +14,17 @@ class VideoProfilController extends Controller
         return view('admin.video.index', compact('videos'));
     }
 
+    private function getYoutubeId(string $url): ?string
+    {
+        preg_match(
+            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?\/]+)/',
+            $url,
+            $matches
+        );
+
+        return $matches[1] ?? null;
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,7 +41,9 @@ class VideoProfilController extends Controller
 
         $data = ['judul'=>$request->judul, 'aktif'=>$request->boolean('aktif', true)];
 
-        if ($request->filled('url_youtube'))     $data['url_youtube'] = $request->url_youtube;
+        if ($request->filled('url_youtube')) {
+        $data['url_youtube'] = $this->getYoutubeId($request->url_youtube);
+        }
         if ($request->hasFile('file_video'))     $data['file_video']  = $request->file('file_video')->store('video','public');
 
         if ($data['aktif']) VideoProfil::where('aktif', true)->update(['aktif' => false]);

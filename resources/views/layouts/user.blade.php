@@ -26,7 +26,7 @@
   {{-- ===== TOP BAR ===== --}}
   <div id="topbar">
     <a href="{{ route('user.beranda') }}" class="tb-logo">
-      <div class="tb-logo-seal">BB</div>
+       <img src="{{ asset('images/Lambang_Kota_Batam.png') }}" alt="Logo Kelurahan Batu Besar" class="tb-logo-seal">
       <div class="tb-logo-text">
         <b>KELURAHAN BATU BESAR</b>
         <span>Kec. Nongsa · Kota Batam</span>

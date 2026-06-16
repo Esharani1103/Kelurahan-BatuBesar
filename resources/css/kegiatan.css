@@ -3,7 +3,7 @@
    Kelurahan Batu Besar
    ============================================== */
 
-.kg-wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+.kg-wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px; min-height: calc(100vh - 120px); }
 
 /* ── Header ── */
 .kg-header    { margin-bottom: 28px; }
@@ -72,8 +72,15 @@
 
 /* ── Empty state ── */
 .kg-empty {
-  text-align: center; padding: 60px 20px; color: #aaa;
+  text-align: center;
+  padding: 80px 20px;
+  color: #aaa;
   font-size: 14px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Pagination ── */

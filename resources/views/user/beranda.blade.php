@@ -314,10 +314,7 @@
           </div>
         @endif
       </div>
-      @auth
-        <input type="file" id="vInput" accept="video/*" style="display:none"
-               onchange="handleVid(event)">
-      @endauth
+      
     </div>
           
 
@@ -496,8 +493,10 @@ php artisan storage:link
             <h2>Peta Lokasi</h2>
           </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15957.319!2d104.1806!3d1.1559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da73a2d7cda9ab%3A0x6a43f1e4a0f5e72e!2sKelurahan%20Batu%20Besar%2C%20Nongsa%2C%20Batam%20City!5e0!3m2!1sid!2sid!4v1700000000"
-                allowfullscreen loading="lazy"></iframe>
+        <iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31878.6!2d104.1175578!3d1.1336033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d986363a882039%3A0x6bb64df7666db2a9!2sBatu%20Besar%2C%20Nongsa%2C%20Batam%20City!5e0!3m2!1sid!2sid!4v1"
+  allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
         <div style="padding:12px 16px;background:#f9fbfa;border-top:1px solid var(--border);font-size:12.5px;color:var(--txt2)">
           📍 Kampung Melayu, Kec. Nongsa, Kota Batam, Kepri 29465
         </div>
@@ -513,8 +512,9 @@ php artisan storage:link
             <h2>Lokasi Kantor</h2>
           </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.4!2d104.1820!3d1.1545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da73a2d7cda9ab%3A0x6a43f1e4a0f5e72e!2sKantor+Kelurahan+Batu+Besar!5e0!3m2!1sid!2sid!4v1700000001"
-                allowfullscreen loading="lazy"></iframe>
+        <iframe
+  src="https://maps.google.com/maps?q=Kantor+Kelurahan+Batu+Besar+Nongsa+Batam&t=&z=17&ie=UTF8&iwloc=&output=embed"
+  allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div style="padding:12px 16px;background:#f9fbfa;border-top:1px solid var(--border);font-size:12.5px;color:var(--txt2)">
           🏛 Jl. Kelurahan Batu Besar, Nongsa, Batam 29465
         </div>

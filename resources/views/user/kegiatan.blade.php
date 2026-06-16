@@ -25,13 +25,10 @@
         @foreach($kegiatanList as $k)
         <div class="kg-card">
             <div class="kg-img">
-                @if($k->foto)
-                    <img src="{{ Storage::url($k->foto) }}" alt="{{ $k->judul }}">
+                @if($k->gambar)
+                    <img src="{{ Storage::url($k->gambar) }}" alt="{{ $k->judul }}">
                 @else
                     <div class="kg-img-placeholder">📅</div>
-                @endif
-                @if($k->kategori)
-                    <span class="kg-badge">{{ $k->kategori }}</span>
                 @endif
                 @unless($k->aktif)
                     <span class="kg-badge-arsip">Arsip</span>
@@ -56,6 +53,7 @@
     @endif
 
     @else
+    {{-- Empty state — min-height agar footer tidak naik --}}
     <div class="kg-empty">
         <div style="font-size:48px;margin-bottom:12px">📅</div>
         <p>Belum ada dokumentasi kegiatan yang tersedia.</p>

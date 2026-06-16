@@ -243,13 +243,7 @@ class WargaController extends Controller
         $row++;
     }
 
-    foreach ($wargas as $warga) {
-
-    // isi data ke excel
-
-    $row++;
-}
-
+    
         // ====================
         // STYLE TABEL
         // ====================

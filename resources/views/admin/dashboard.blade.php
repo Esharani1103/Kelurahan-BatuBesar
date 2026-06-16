@@ -150,9 +150,6 @@
         <p class="font-semibold">KELURAHAN BATU BESAR</p>
         <p>Jalan Kelurahan Batu Besar, Kecamatan Nongsa, Kota Batam<br>
             Kepulauan Riau 29465 |
-            <a href="mailto:Batubesar@gmail.com" class="underline text-blue-300 hover:text-blue-500">
-                Batubesar@gmail.com
-            </a>
         </p>
         <p class="mt-1">2026 Kelurahan Batu Besar.</p>
     </footer>
