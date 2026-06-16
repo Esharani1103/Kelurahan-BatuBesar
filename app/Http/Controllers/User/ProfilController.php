@@ -3,31 +3,56 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\ProfilKelurahan;
 
 class ProfilController extends Controller
 {
+    private function profilData()
+    {
+        return ProfilKelurahan::firstOrCreate([], [
+            'gambaran_judul' => 'Mengenal Kelurahan Batu Besar',
+            'gambaran_isi' => '',
+            'visi' => '',
+            'misi' => [],
+            'selayang_judul' => 'Selayang Pandang',
+            'selayang_isi' => '',
+            'struktur_nama' => '',
+            'struktur_jabatan' => '',
+            'struktur_nip' => '',
+            'struktur_foto' => null,
+        ]);
+    }
+
     public function profil()
     {
-    return view('user.profil');
+        return view('user.profil', [
+            'profil' => $this->profilData(),
+        ]);
     }
-     public function selayang()
+
+    public function selayang()
     {
-        return view('user.profil.selayang');
+        return view('user.profil.selayang', [
+            'profil' => $this->profilData(),
+        ]);
     }
 
     public function visi()
     {
-        return view('user.profil.visi');
+        return view('user.profil.visi', [
+            'profil' => $this->profilData(),
+        ]);
     }
 
     public function struktur()
     {
-        return view('user.profil.struktur');
+        return view('user.profil.struktur', [
+            'profil' => $this->profilData(),
+        ]);
     }
 
     public function peta()
     {
         return view('user.profil.peta');
     }
-}
+    }

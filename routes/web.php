@@ -51,6 +51,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    Route::get('/profil', [\App\Http\Controllers\Admin\ProfilKelurahanController::class, 'index'])
+    ->name('admin.profil.index');
+
+    Route::post('/profil', [\App\Http\Controllers\Admin\ProfilKelurahanController::class, 'update'])
+    ->name('admin.profil.update');
+
     // Redirect /admin → dashboard
     Route::get('/', fn() => redirect()->route('admin.dashboard'));
 

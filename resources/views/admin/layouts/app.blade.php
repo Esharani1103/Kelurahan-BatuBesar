@@ -94,9 +94,10 @@ padding:15px;
                 Data Warga
             </a>
 
-             <a href="#"
-               class="sidebar-link block px-4 py-3 rounded">
-                Profil
+            <a href="{{ route('admin.profil.index') }}"
+                class="sidebar-link block px-4 py-3 rounded
+                {{ request()->routeIs('admin.profil.*') ? 'sidebar-active' : '' }}">
+                 Profil
             </a>
 
             <a href="{{ route('admin.kegiatan.index') }}"

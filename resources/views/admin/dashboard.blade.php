@@ -75,7 +75,14 @@
                         <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
 
-                    
+                    <a href="{{ route('admin.profil.index') }}"
+                       class="bg-pink-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-pink-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                             <i class="fa-solid fa-id-card text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Profil</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Profil →</div>
+                    </a>
 
                     <a href="{{ route('admin.layanan') }}"
                        class="bg-blue-500 text-white rounded-md shadow-md p-6 w-56 hover:bg-blue-600 transition block">

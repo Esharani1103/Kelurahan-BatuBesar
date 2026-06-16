@@ -77,11 +77,25 @@
         Beranda
       </a>
       <div class="nav-divider"></div>
-      <a href="{{ route('user.profil') }}"
-         class="nav-item {{ request()->routeIs('profil') ? 'active' : '' }}">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="nav-dropdown">
+    <a href="{{ route('user.profil') }}"
+       class="nav-item {{ request()->routeIs('user.profil*') ? 'active' : '' }}">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
         Profil
-      </a>
+        <span class="dropdown-toggle">▼</span>
+    </a>
+
+    <div class="dropdown-menu">
+        <a href="{{ route('user.profil') }}">Gambaran Umum</a>
+        <a href="{{ route('user.profil.selayang') }}">Selayang Pandang</a>
+        <a href="{{ route('user.profil.visi') }}">Visi & Misi</a>
+        <a href="{{ route('user.profil.struktur') }}">Struktur Organisasi</a>
+        <a href="{{ route('user.profil.peta') }}">Peta Kelurahan</a>
+    </div>
+</div>
       <a href="{{ route('user.data-warga') }}"
          class="nav-item {{ request()->routeIs('data-warga') ? 'active' : '' }}">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -114,9 +128,27 @@
     <a href="{{ route('user.beranda') }}"    onclick="closeNavMobile()">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda
     </a>
-    <a href="{{ route('user.profil') }}"     onclick="closeNavMobile()">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil
+    <div class="nav-dropdown">
+    <a href="{{ route('user.profil') }}"
+       class="nav-item {{ request()->routeIs('user.profil*') ? 'active' : '' }}">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
+
+        Profil
+
+        <span class="dropdown-toggle">▼</span>
     </a>
+
+    <div class="dropdown-menu">
+        <a href="{{ route('user.profil') }}">Gambaran Umum</a>
+        <a href="{{ route('user.profil.selayang') }}">Selayang Pandang</a>
+        <a href="{{ route('user.profil.visi') }}">Visi & Misi</a>
+        <a href="{{ route('user.profil.struktur') }}">Struktur Organisasi</a>
+        <a href="{{ route('user.profil.peta') }}">Peta Kelurahan</a>
+    </div>
+</div>
     <a href="{{ route('user.data-warga') }}" onclick="closeNavMobile()">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Data Warga
     </a>

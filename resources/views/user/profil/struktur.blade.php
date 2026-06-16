@@ -12,10 +12,10 @@
 
         <!-- GAMBAR STRUKTUR -->
         <div class="text-center">
-            <img src="{{ asset('images/struktur.png') }}"
-                 alt="Struktur Organisasi"
-                 class="img-fluid shadow rounded"
-                 style="max-width: 900px;">
+           <img src="{{ $profil->struktur_foto ? asset('storage/' . $profil->struktur_foto) : asset('images/struktur.png') }}"
+     alt="Struktur Organisasi"
+     class="img-fluid shadow rounded"
+     style="max-width: 900px;">
         </div>
 
     </div>
