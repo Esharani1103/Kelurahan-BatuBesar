@@ -14,6 +14,7 @@ export default defineConfig({
                      'resources/css/datawarga.css',
                      'resources/css/profil.css',
                      'resources/css/kegiatan.css',
+                     'resources/css/profil-konten.css',
                     ],
             refresh: true,
         }),

@@ -66,9 +66,38 @@ Kelola Data Warga
 
         <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
             <div class="p-4 bg-gray-50 border-b flex justify-between items-center">
-                <span class="text-sm font-bold text-gray-700 italic">Data Warga (Halaman: {{ $warga->currentPage() }})</span>
-                <span class="text-xs bg-orange-100 px-2 py-1 rounded text-orange-700 font-bold">Total: {{ $warga->total() }} Orang</span>
-            </div>
+
+    <span class="text-sm font-bold text-gray-700 italic">
+        Data Warga (Halaman: {{ $warga->currentPage() }})
+    </span>
+
+    <div class="flex items-center gap-2">
+
+        <span class="text-xs bg-orange-100 px-2 py-1 rounded text-orange-700 font-bold">
+            Total: {{ $warga->total() }} Orang
+        </span>
+
+        <form action="{{ route('warga.deletePage') }}"
+              method="POST"
+              onsubmit="return confirm('Yakin hapus semua data di halaman {{ $warga->currentPage() }}?')">
+
+            @csrf
+            @method('DELETE')
+
+            <input type="hidden"
+                   name="page"
+                   value="{{ $warga->currentPage() }}">
+
+            <button type="submit"
+                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-bold">
+                Hapus Halaman
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
              <!-- SEARCH -->
              <form method="GET" action="{{ route('warga.index') }}" class="p-4 flex justify-end">
     <div class="relative w-1/3">

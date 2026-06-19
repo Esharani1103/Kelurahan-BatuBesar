@@ -75,6 +75,15 @@
                         <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
 
+                      <a href="{{ route('admin.profil.index') }}"
+                       class="bg-purple-600 text-white rounded-md shadow-md p-6 w-56 hover:bg-purple-700 transition block">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-calendar-days text-2xl"></i>
+                        </div>
+                        <div class="text-lg font-bold">Kelola Profil</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
+                    </a>
+
                     
 
                     <a href="{{ route('admin.layanan') }}"
@@ -82,7 +91,7 @@
                         <div class="flex items-center gap-3 mb-2">
                             <i class="fa-solid fa-comment-dots text-2xl"></i>
                         </div>
-                        <div class="text-lg font-bold">Saran &amp; Aduan</div>
+                        <div class="text-lg font-bold">Saran &amp; Masukan</div>
                         <div class="mt-1 text-sm font-medium opacity-80">Lihat Detail →</div>
                     </a>
 
@@ -117,7 +126,7 @@
                         <div class="flex items-center gap-3 mb-2">
                             <i class="fa-solid fa-bullhorn text-2xl"></i>
                         </div>
-                        <div class="text-lg font-bold">Teks Berjalan</div>
+                        <div class="text-lg font-bold">Pengumuman Kelurahan</div>
                         <div class="mt-1 text-sm font-medium opacity-80">Kelola Ticker →</div>
                     </a>
 
@@ -135,8 +144,8 @@
                         <div class="flex items-center gap-3 mb-2">
                             <i class="fa-solid fa-chart-bar text-2xl"></i>
                         </div>
-                        <div class="text-lg font-bold">Statistik</div>
-                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Data →</div>
+                        <div class="text-lg font-bold">Informasi Umum</div>
+                        <div class="mt-1 text-sm font-medium opacity-80">Kelola Informasi →</div>
                     </a>
 
                 </div>

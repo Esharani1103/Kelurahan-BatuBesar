@@ -14,23 +14,11 @@ class VideoProfilController extends Controller
         return view('admin.video.index', compact('videos'));
     }
 
-    private function getYoutubeId(string $url): ?string
-    {
-        preg_match(
-            '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?\/]+)/',
-            $url,
-            $matches
-        );
-
-        return $matches[1] ?? null;
-    }
-
     public function store(Request $request)
     {
         $request->validate([
             'judul'       => 'required|string|max:150',
             'url_youtube' => 'nullable|url|max:255',
-            'file_video'  => 'nullable|file|mimes:mp4,webm,ogg|max:102400',
             'aktif'       => 'nullable|boolean',
         ]);
 
@@ -41,9 +29,9 @@ class VideoProfilController extends Controller
 
         $data = ['judul'=>$request->judul, 'aktif'=>$request->boolean('aktif', true)];
 
-        if ($request->filled('url_youtube')) {
-        $data['url_youtube'] = $this->getYoutubeId($request->url_youtube);
-        }
+       if ($request->filled('url_youtube')) {
+    $data['url_youtube'] = $request->url_youtube;
+    }
         if ($request->hasFile('file_video'))     $data['file_video']  = $request->file('file_video')->store('video','public');
 
         if ($data['aktif']) VideoProfil::where('aktif', true)->update(['aktif' => false]);
@@ -58,11 +46,13 @@ class VideoProfilController extends Controller
         $video->delete();
         return redirect()->route('admin.video.index')->with('success', 'Video berhasil dihapus.');
     }
+public function aktifkan($id)
+{
+    $video = VideoProfil::findOrFail($id);
 
-    public function aktifkan(VideoProfil $video)
-    {
-        VideoProfil::where('aktif', true)->update(['aktif' => false]);
-        $video->update(['aktif' => true]);
-        return response()->json(['success'=>true,'message'=>"Video \"{$video->judul}\" sekarang aktif."]);
-    }
+    VideoProfil::where('aktif', true)->update(['aktif' => false]);
+    $video->update(['aktif' => true]);
+
+    return response()->json(['success' => true]);
+}
 }

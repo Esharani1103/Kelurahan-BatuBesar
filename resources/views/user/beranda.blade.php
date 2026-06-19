@@ -15,7 +15,7 @@
 @section('content')
 
 {{-- ===== STATS BAR 
-<div id="statsbar">
+ <<div id="statsbar">
   <div class="statsbar-label">
     <svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 16l4-4 4 4 4-6"/></svg>
     Data Kelurahan
@@ -61,7 +61,7 @@
 --}}
 
 {{-- ===== SECTION STATISTIK BERGERAK ===== --}}
-<div id="statSection">
+<!--<div id="statSection">
   <div class="stat-section-bg">
     <div class="stat-orb stat-orb1"></div>
     <div class="stat-orb stat-orb2"></div>
@@ -71,26 +71,26 @@
   <div class="stat-section-inner">
     <div class="stat-section-label">
       <span class="stat-pulse-dot"></span>
-      Data Real-Time Kelurahan Batu Besar
+      Tentang Kelurahan Batu Besar
     </div>
     <div class="stat-cards-row">
-
+ 
       <div class="stat-big-card"
-           data-target="{{ $statistik['penduduk']->nilai ?? 4820 }}"
+           data-target="{{ $statistik['kode_pos']->nilai ?? 29465 }}"
            data-suffix="" data-id="ctr1">
         <div class="sbc-icon-wrap" style="--c1:#28c464;--c2:#0b5c2e">
           <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
-            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
         </div>
         <div class="sbc-body">
           <div class="sbc-num" id="ctr1">0</div>
-          <div class="sbc-label">Total Penduduk</div>
-          <div class="sbc-sub">Jiwa terdaftar</div>
+          <div class="sbc-label">Kode Pos</div>
+          <div class="sbc-sub">Wilayah utama</div>
         </div>
         <div class="sbc-bar-wrap">
-          <div class="sbc-bar" style="--pct:78%;--col:#28c464"></div>
-          <span>78% aktif</span>
+          <div class="sbc-bar" style="--pct:100%;--col:#28c464"></div>
+          <span>Terverifikasi</span>
         </div>
         <div class="sbc-sparkline">
           <svg viewBox="0 0 80 30" preserveAspectRatio="none">
@@ -99,23 +99,23 @@
           </svg>
         </div>
       </div>
-
+ 
       <div class="stat-big-card"
-           data-target="{{ $statistik['kk']->nilai ?? 1246 }}"
-           data-suffix="" data-id="ctr2">
+           data-target="{{ $statistik['luas_wilayah']->nilai ?? 12 }}"
+           data-suffix=" km²" data-id="ctr2">
         <div class="sbc-icon-wrap" style="--c1:#ffc72c;--c2:#8a6000">
           <svg viewBox="0 0 24 24" fill="white" width="28" height="28">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            <path d="M9 3L1 9l8 6 8-6-8-6zm0 14.5L1 11.5V18l8 6 8-6v-6.5l-8 6z"/>
           </svg>
         </div>
         <div class="sbc-body">
           <div class="sbc-num" id="ctr2">0</div>
-          <div class="sbc-label">Kepala Keluarga</div>
-          <div class="sbc-sub">Kartu Keluarga aktif</div>
+          <div class="sbc-label">Luas Wilayah</div>
+          <div class="sbc-sub">Kelurahan Batu Besar</div>
         </div>
         <div class="sbc-bar-wrap">
           <div class="sbc-bar" style="--pct:91%;--col:#ffc72c"></div>
-          <span>91% terdata</span>
+          <span>Tercatat resmi</span>
         </div>
         <div class="sbc-sparkline">
           <svg viewBox="0 0 80 30" preserveAspectRatio="none">
@@ -124,7 +124,7 @@
           </svg>
         </div>
       </div>
-
+ 
       <div class="stat-big-card"
            data-target="{{ $statistik['rw']->nilai ?? 6 }}"
            data-suffix=" RW" data-id="ctr3">
@@ -149,7 +149,7 @@
           </svg>
         </div>
       </div>
-
+ 
       <div class="stat-big-card"
            data-target="{{ $statistik['rt']->nilai ?? 24 }}"
            data-suffix=" RT" data-id="ctr4">
@@ -174,10 +174,11 @@
           </svg>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </div>
+-->
 
 {{-- ===== MAIN LAYOUT ===== --}}
 <div class="main-wrap">
@@ -299,7 +300,7 @@
       </div>
       <div class="video-wrap">
         @if($video && $video->url_youtube)
-          <iframe src="https://www.youtube.com/embed/{{ $video->url_youtube }}"
+          <iframe src="{{ $video->embed_url }}"
                   frameborder="0" allowfullscreen style="width:100%;height:100%;"></iframe>
         @elseif($video && $video->file_video)
           <video controls src="{{ Storage::url($video->file_video) }}"

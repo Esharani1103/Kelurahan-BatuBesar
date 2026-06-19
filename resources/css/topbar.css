@@ -112,7 +112,47 @@
   display: flex; align-items: center; justify-content: center;
   margin-left: -4px; margin-top: -8px;
 }
-
+ 
+/* ===== DROPDOWN PROFIL (Desktop) ===== */
+.nav-item-dropdown { position: relative; }
+.nav-item-trigger   { background: none; border: none; cursor: pointer; font-family: inherit; }
+.nav-chevron         { width: 11px !important; height: 11px !important; margin-left: -2px; transition: transform .2s; }
+.nav-item-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+ 
+.nav-dropdown-menu {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(11,92,46,.18); border: 1px solid var(--border);
+  min-width: 260px; padding: 8px;
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: all .2s ease; z-index: 1001;
+}
+.nav-item-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.nav-dropdown-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border-radius: 8px;
+  text-decoration: none; transition: background .15s;
+}
+.nav-dropdown-item:hover  { background: #f0f7f2; }
+.nav-dropdown-item.active { background: #d6f0e2; }
+.ndi-icon  { font-size: 18px; flex-shrink: 0; line-height: 1.3; margin-top: 1px; }
+.nav-dropdown-item b     { display: block; font-size: 13px; font-weight: 700; color: var(--txt); }
+.nav-dropdown-item small { display: block; font-size: 11px; color: var(--txt3); margin-top: 1px; }
+ 
+/* ===== MOBILE: Grup Profil ===== */
+.nav-mobile-group { border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 6px; }
+.nav-mobile-group-label {
+  display: flex; align-items: center; gap: 10px; padding: 11px 0 6px;
+  font-size: 14px; font-weight: 700; color: var(--txt);
+}
+.nav-mobile-group-label svg { width: 16px; height: 16px; stroke: var(--g2); fill: none; stroke-width: 2; }
+.nav-mobile-sub {
+  display: block; padding: 9px 0 9px 26px; font-size: 13px; font-weight: 600;
+  color: var(--txt2); text-decoration: none;
+}
+ 
 /* Hamburger */
 .nav-ham { display: none; background: none; border: none; cursor: pointer; padding: 6px; flex-direction: column; gap: 4px; }
 .nav-ham span { width: 20px; height: 2px; background: var(--txt); border-radius: 2px; display: block; transition: .3s; }
@@ -130,7 +170,6 @@
 }
 .nav-mobile a:last-child { border-bottom: none; }
 .nav-mobile a svg { width: 16px; height: 16px; stroke: var(--g2); fill: none; stroke-width: 2; }
-
 /* ===== STATS BAR ===== */
 #statsbar {
   background: linear-gradient(90deg, #061a0e 0%, #0b3d1e 40%, #0d4d26 100%);

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,9 +9,17 @@ class VideoProfil extends Model
 {
     use HasFactory;
 
-    protected $table    = 'video_profil';
-    protected $fillable = ['judul','file_video','url_youtube','aktif'];
-    protected $casts    = ['aktif' => 'boolean'];
+    protected $table = 'video_profil';
+
+    protected $fillable = [
+        'judul',
+        'url_youtube',
+        'aktif',
+    ];
+
+    protected $casts = [
+        'aktif' => 'boolean',
+    ];
 
     public function scopeAktif($query)
     {
@@ -22,27 +31,31 @@ class VideoProfil extends Model
         return !empty($this->url_youtube);
     }
 
-    public function getEmbedUrlAttribute(): ?string
-    {
-        if (!$this->url_youtube) return null;
-
-        preg_match(
-            '/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/',
-            $this->url_youtube,
-            $matches
-        );
-
-        if (!empty($matches[1])) {
-            return 'https://www.youtube.com/embed/' . $matches[1];
-        }
-        if (strlen($this->url_youtube) === 11) {
-            return 'https://www.youtube.com/embed/' . $this->url_youtube;
-        }
+   public function getYoutubeIdAttribute(): ?string
+{
+    if (!$this->url_youtube) {
         return null;
     }
 
-    public function getFileUrlAttribute(): ?string
+    // jika sudah berupa ID
+    if (preg_match('/^[a-zA-Z0-9_-]{11}$/', $this->url_youtube)) {
+        return $this->url_youtube;
+    }
+
+    // jika berupa URL
+    preg_match(
+        '%(?:youtube(?:-nocookie)?\.com/(?:[^/\n\s]+/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})%',
+        $this->url_youtube,
+        $matches
+    );
+
+    return $matches[1] ?? null;
+}
+
+    public function getEmbedUrlAttribute(): ?string
     {
-        return $this->file_video ? asset('storage/' . $this->file_video) : null;
+        return $this->youtube_id
+            ? 'https://www.youtube.com/embed/' . $this->youtube_id
+            : null;
     }
 }

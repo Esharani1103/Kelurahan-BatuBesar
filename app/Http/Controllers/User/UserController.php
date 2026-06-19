@@ -9,6 +9,7 @@ use App\Models\PengumumanTicker;
 use App\Models\Statistik;
 use App\Models\SyaratDokumen;
 use App\Models\Kegiatan;
+use App\Models\ProfilKonten;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,25 +35,42 @@ class UserController extends Controller
         ]));
     }
 
+   // =========================================================================
+    //  PROFIL
+    //  Konten setiap sub-halaman dikelola admin via ProfilKonten model
+    // =========================================================================
     public function profil()
     {
         return view('user.profil', $this->sharedData());
     }
-
+ 
     public function selayangPandang()
     {
-        return view('user.selayang', $this->sharedData());
+        return view('user.profil.selayang', array_merge($this->sharedData(), [
+            'konten' => ProfilKonten::bySlug(ProfilKonten::SELAYANG),
+        ]));
     }
-
+ 
+    public function gambaranUmum()
+    {
+        return view('user.gambaran', array_merge($this->sharedData(), [
+            'konten' => ProfilKonten::bySlug(ProfilKonten::GAMBARAN),
+        ]));
+    }
+ 
     public function visiMisi()
     {
-        return view('user.visi', $this->sharedData());
+        return view('user.profil.visi', array_merge($this->sharedData(), [
+            'konten' => ProfilKonten::bySlug(ProfilKonten::VISI),
+        ]));
     }
-
-    public function strukturOrganisasi()
-    {
-        return view('user.struktur', $this->sharedData());
-    }
+ 
+  public function strukturOrganisasi()
+{
+    return view('user.profil.struktur', array_merge($this->sharedData(), [
+        'konten' => ProfilKonten::bySlug(ProfilKonten::STRUKTUR),
+    ]));
+}
 
     public function petaKelurahan()
     {

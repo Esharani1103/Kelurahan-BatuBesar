@@ -13,10 +13,10 @@
     {{-- TAB NAVIGATION --}}
     @php $tab = request('tab', 'statistik'); @endphp
     <div class="flex border-b border-gray-300 mb-6">
-        <a href="{{ route('admin.statistik.index', ['tab'=>'statistik']) }}"
+       <!-- <a href="{{ route('admin.statistik.index', ['tab'=>'statistik']) }}"
            class="px-5 py-3 text-sm font-bold {{ $tab==='statistik' ? 'border-b-2 border-green-700 text-green-700' : 'text-gray-400 hover:text-gray-600' }}">
             📊 Statistik Beranda
-        </a>
+        </a>-->
         <a href="{{ route('admin.statistik.index', ['tab'=>'info']) }}"
            class="px-5 py-3 text-sm font-bold {{ $tab==='info' ? 'border-b-2 border-green-700 text-green-700' : 'text-gray-400 hover:text-gray-600' }}">
             🏛️ Info Kelurahan
@@ -30,7 +30,7 @@
     {{-- ══════════════════════════════════════
          TAB 1: STATISTIK BERANDA
          ══════════════════════════════════════ --}}
-    @if($tab === 'statistik')
+    <!--@if($tab === 'statistik')
     <div class="bg-white rounded-lg shadow border border-gray-200 max-w-2xl">
         <div class="p-5 border-b border-gray-100">
             <h2 class="font-bold text-lg">Statistik Beranda</h2>
@@ -76,7 +76,7 @@
             </button>
         </form>
     </div>
-
+-->
     {{-- ══════════════════════════════════════
          TAB 2: INFO KELURAHAN
          ══════════════════════════════════════ --}}

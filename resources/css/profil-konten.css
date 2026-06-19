@@ -1,0 +1,84 @@
+/* ==============================================
+   profil-konten.css — Halaman Selayang Pandang,
+   Gambaran Umum, Visi Misi, Struktur Organisasi
+   ============================================== */
+
+.pk-wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px; min-height: calc(100vh - 120px); }
+
+/* ── Header ── */
+.pk-header    { margin-bottom: 24px; }
+.pk-title-row { display: flex; align-items: center; gap: 10px; }
+.pk-title-bar {
+  width: 4px; height: 28px; flex-shrink: 0;
+  background: linear-gradient(#167a3e, #28c464);
+  border-radius: 2px;
+}
+.pk-title { font-size: 22px; font-weight: 800; color: #1a2e20; margin: 0; }
+
+/* ── Card ── */
+.pk-card {
+  background: #fff;
+  border: 1.5px solid #d8e8dc;
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: 0 2px 16px rgba(11,92,46,.06);
+}
+
+/* ── Konten teks ── */
+.pk-konten-text {
+  font-size: 14.5px;
+  color: #3a5a42;
+  line-height: 1.85;
+}
+.pk-konten-text p   { margin-bottom: 14px; }
+.pk-konten-text p:last-child { margin-bottom: 0; }
+.pk-konten-text strong { color: #1a2e20; font-weight: 800; }
+.pk-konten-text ul  { padding-left: 20px; margin-bottom: 14px; }
+.pk-konten-text li  { margin-bottom: 6px; }
+
+.pk-empty-text {
+  color: #aaa;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* ── File lampiran ── */
+.pk-file-divider {
+  height: 1px;
+  background: #e8f0ea;
+  margin: 28px 0 24px;
+}
+.pk-file-image img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d8e8dc;
+}
+.pk-file-doc {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f5faf7;
+  border: 1.5px solid #d8e8dc;
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  transition: all .2s;
+}
+.pk-file-doc:hover {
+  border-color: #1fa050;
+  background: #eef8f1;
+}
+.pk-file-doc-icon { font-size: 28px; flex-shrink: 0; }
+.pk-file-doc-info { flex: 1; min-width: 0; }
+.pk-file-doc-info strong { display: block; font-size: 14px; color: #1a2e20; font-weight: 700; }
+.pk-file-doc-info span   { font-size: 12px; color: #6a8a72; }
+.pk-file-doc-arrow { font-size: 18px; color: #1fa050; font-weight: 700; flex-shrink: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .pk-wrap  { padding: 20px 16px; }
+  .pk-card  { padding: 22px; }
+  .pk-title { font-size: 18px; }
+}

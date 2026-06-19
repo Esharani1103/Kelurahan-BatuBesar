@@ -51,7 +51,7 @@ class AparaturController extends Controller
         $validated = $request->validate([
             'nama'    => 'required|string|max:100',
             'jabatan' => 'required|string|max:100',
-            'nip'     => 'nullable|string|max:50',
+            'nip'     => 'required|string|max:50',
             'urutan'  => 'nullable|integer|min:0',
             'aktif'   => 'nullable|boolean',
             'foto'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',

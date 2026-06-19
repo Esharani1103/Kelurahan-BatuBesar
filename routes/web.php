@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\TickerController;
 use App\Http\Controllers\Admin\StatistikController;
 use App\Http\Controllers\Admin\SyaratDokumenController;
 use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\ProfilKontenController;
 
 
 // =============================================================
@@ -64,9 +65,14 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // ── Warga ─────────────────────────────────────────────────
     Route::get   ('/warga',          [WargaController::class, 'index'])  ->name('warga.index');
     Route::post  ('/warga/store',    [WargaController::class, 'store'])  ->name('warga.store');
+    // page DI SINI
+    Route::delete('/warga/delete-page', [WargaController::class, 'deletePage'])
+    ->name('warga.deletePage');
     Route::get   ('/warga/{id}/edit',[WargaController::class, 'edit'])   ->name('warga.edit');
     Route::put   ('/warga/{id}',     [WargaController::class, 'update']) ->name('warga.update');
     Route::delete('/warga/{id}',     [WargaController::class, 'destroy'])->name('warga.destroy');
+    
+    
 
     // ── Import Excel ──────────────────────────────────────────
     Route::post('/warga/import', [ImportController::class, 'import'])->name('warga.import');
@@ -98,8 +104,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get   ('/video',                   [VideoProfilController::class, 'index'])   ->name('admin.video.index');
     Route::post  ('/video',                   [VideoProfilController::class, 'store'])   ->name('admin.video.store');
     Route::delete('/video/{video}',           [VideoProfilController::class, 'destroy']) ->name('admin.video.destroy');
-    Route::patch ('/video/{video}/aktifkan',  [VideoProfilController::class, 'aktifkan'])->name('admin.video.aktifkan');
-
+    Route::patch('/video/{id}/aktifkan', [VideoProfilController::class, 'aktifkan']);
     // ── Ticker (Teks Berjalan) ────────────────────────────────
     // Urutan HARUS sebelum put/{ticker}
     Route::post ('/ticker/urutan',            [TickerController::class, 'urutan'])->name('admin.ticker.urutan');
@@ -146,6 +151,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
              'destroy' => 'admin.kegiatan.destroy',
          ]);
          
+    
+      // ── Profil Konten (Selayang Pandang, Gambaran Umum, Visi Misi, Struktur) ──
+    // Satu halaman dengan 4 tab — setiap tab punya slug sendiri
+    Route::get   ('/profil',                [ProfilKontenController::class, 'index'])    ->name('admin.profil.index');
+    Route::post  ('/profil/{slug}',          [ProfilKontenController::class, 'update'])   ->name('admin.profil.update');
+    Route::delete('/profil/{slug}/file',     [ProfilKontenController::class, 'hapusFile'])->name('admin.profil.hapus-file');
 }); // end middleware auth:admin
 
 
@@ -162,11 +173,12 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/laporan-rt', [UserController::class, 'laporanRt'])->name('laporan-rt');
 
     // ── Profil & sub-halaman (ProfilController) ───────────────
-    Route::get('/profil',                      [ProfilController::class, 'profil'])  ->name('profil');
-    Route::get('/profil/selayang-pandang',     [ProfilController::class, 'selayang'])->name('profil.selayang');
-    Route::get('/profil/visi-misi',            [ProfilController::class, 'visi'])    ->name('profil.visi');
-    Route::get('/profil/struktur-organisasi',  [ProfilController::class, 'struktur'])->name('profil.struktur');
-    Route::get('/profil/peta-kelurahan',       [ProfilController::class, 'peta'])    ->name('profil.peta');
+    Route::get('/profil',                      [UserController::class, 'profil'])  ->name('profil');
+    Route::get('/profil/selayang-pandang',     [UserController::class, 'selayangPandang'])->name('profil.selayang');
+    Route::get('/profil/gambaran-umum',     [UserController::class, 'gambaranUmum'])->name('profil.gambaran');
+    Route::get('/profil/visi-misi',            [UserController::class, 'visiMisi'])    ->name('profil.visi');
+    Route::get('/profil/struktur-organisasi',  [UserController::class, 'strukturOrganisasi'])->name('profil.struktur');
+    Route::get('/profil/peta-kelurahan',       [UserController::class, 'peta'])    ->name('profil.peta');
 
     // ── Data Warga (DataWargaController) ─────────────────────
     Route::get('/data-warga',            [DataWargaController::class, 'dataWarga'])  ->name('data-warga');

@@ -96,7 +96,7 @@ padding:15px;
                 Data Warga
             </a>
 
-             <a href="#"
+             <a href="{{ route('admin.profil.index') }}"
                class="sidebar-link block px-4 py-3 rounded">
                 Profil
             </a>
@@ -109,7 +109,7 @@ padding:15px;
             <a href="{{ route('admin.layanan') }}"
                class="sidebar-link block px-4 py-3 rounded
                 {{ request()->routeIs('admin.layanan') ? 'sidebar-active' : '' }}">
-                Saran & Aduan
+                Saran & Masukan
             </a>
 
             <div class="pt-4 pb-2 text-xs uppercase text-slate-300 font-bold">
@@ -131,19 +131,19 @@ padding:15px;
             <a href="{{ route('admin.ticker.index') }}"
                class="sidebar-link block px-4 py-3 rounded
                 {{ request()->routeIs('admin.ticker.index') ? 'sidebar-active' : '' }}">
-                Teks Berjalan
+                Pengumuman Kelurahan
             </a>
 
             <a href="{{ route('admin.syarat.index') }}"
                class="sidebar-link block px-4 py-3 rounded
                 {{ request()->routeIs('admin.syarat.index') ? 'sidebar-active' : '' }}">
-                Syarat Dokumen
+                Persyaratan Administrasi
             </a>
 
             <a href="{{ route('admin.statistik.index') }}"
                class="sidebar-link block px-4 py-3 rounded
                 {{ request()->routeIs('admin.statistik.index') ? 'sidebar-active' : '' }}">
-                Statistik
+                Informasi Umum
             </a>
 
         </nav>

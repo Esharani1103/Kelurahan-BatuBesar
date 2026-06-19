@@ -27,8 +27,12 @@
             {{-- Thumbnail --}}
             <div class="w-36 h-20 rounded-lg overflow-hidden bg-gray-100 shrink-0">
                 @if($v->is_youtube && $v->embed_url)
-                    <iframe src="{{ $v->embed_url }}?controls=0&modestbranding=1"
-                            class="w-full h-full" frameborder="0"></iframe>
+                   <iframe
+    class="w-full h-full"
+    src="{{ $v->embed_url }}"
+    frameborder="0"
+    allowfullscreen>
+</iframe>
                 @elseif($v->file_video)
                     <video src="{{ asset('storage/'.$v->file_video) }}" class="w-full h-full object-cover" muted></video>
                 @else
@@ -91,11 +95,6 @@
                         class="px-4 py-2 text-sm font-bold text-green-700 border-b-2 border-green-700">
                     🎬 URL YouTube
                 </button>
-                <button type="button" id="tabFileBtn"
-                        onclick="switchTab('file')"
-                        class="px-4 py-2 text-sm font-semibold text-gray-400">
-                    📁 Upload File
-                </button>
             </div>
             <div id="tabYoutube">
                 <label class="block text-sm font-semibold text-gray-600 mb-1">URL YouTube</label>
@@ -118,6 +117,9 @@
             <button type="submit" class="w-full bg-green-700 text-white py-2 rounded font-bold hover:bg-green-800">
                 Upload
             </button>
+            <div id="loadingUpload" class="hidden text-center text-sm text-gray-500 mt-2">
+    Sedang mengupload video...
+    </div>
         </form>
     </div>
 </div>
@@ -184,10 +186,17 @@ async function aktifkanVideo(id, btn) {
     btn.disabled = true; btn.textContent = '...';
     const res  = await fetch(`/admin/video/${id}/aktifkan`, {
         method: 'PATCH',
-        headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' }
+        headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json',  'Content-Type': 'application/json'     
+        },
+        credentials: 'same-origin'
     });
     const data = await res.json();
     if (data.success) location.reload();
 }
+document.querySelector('#modalTambah form').addEventListener('submit', function() {
+    document.getElementById('btnUpload').disabled = true;
+    document.getElementById('btnUpload').innerText = 'Mengupload...';
+    document.getElementById('loadingUpload').classList.remove('hidden');
+});
 </script>
 @endsection

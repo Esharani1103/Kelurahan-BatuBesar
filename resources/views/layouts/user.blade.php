@@ -77,11 +77,45 @@
         Beranda
       </a>
       <div class="nav-divider"></div>
-      <a href="{{ route('user.profil') }}"
-         class="nav-item {{ request()->routeIs('profil') ? 'active' : '' }}">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Profil
-      </a>
+      <div class="nav-item-dropdown">
+        <button class="nav-item nav-item-trigger {{ request()->routeIs('user.profil*') ? 'active' : '' }}" type="button">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profil
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="{{ route('user.profil.selayang') }}" class="nav-dropdown-item {{ request()->routeIs('user.profil.selayang') ? 'active' : '' }}">
+            <span class="ndi-icon">📜</span>
+            <div>
+              <b>Selayang Pandang</b>
+              <small>Sejarah singkat kelurahan</small>
+            </div>
+          </a>
+          <a href="{{ route('user.profil.gambaran') }}" class="nav-dropdown-item {{ request()->routeIs('user.profil.gambaran') ? 'active' : '' }}">
+            <span class="ndi-icon">🗺️</span>
+            <div>
+              <b>Gambaran Umum</b>
+              <small>Letak dan kondisi wilayah</small>
+            </div>
+          </a>
+          <a href="{{ route('user.profil.visi') }}" class="nav-dropdown-item {{ request()->routeIs('user.profil.visi') ? 'active' : '' }}">
+            <span class="ndi-icon">🎯</span>
+            <div>
+              <b>Visi &amp; Misi</b>
+              <small>Arah pembangunan kelurahan</small>
+            </div>
+          </a>
+          <a href="{{ route('user.profil.struktur') }}" class="nav-dropdown-item {{ request()->routeIs('user.profil.struktur') ? 'active' : '' }}">
+            <span class="ndi-icon">🏛️</span>
+            <div>
+              <b>Struktur Organisasi</b>
+              <small>Susunan aparatur kelurahan</small>
+            </div>
+          </a>
+        </div>
+      </div>
       <a href="{{ route('user.data-warga') }}"
          class="nav-item {{ request()->routeIs('data-warga') ? 'active' : '' }}">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -95,7 +129,7 @@
       <a href="{{ route('user.layanan') }}"
          class="nav-item {{ request()->routeIs('layanan') ? 'active' : '' }}">
         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Saran &amp; Aduan
+        Saran &amp; Masukan
         @php $jumlahAduan = \App\Models\Layanan::where('status','baru')->count(); @endphp
         @if($jumlahAduan > 0)
           <span class="nav-badge">{{ $jumlahAduan }}</span>
@@ -114,9 +148,15 @@
     <a href="{{ route('user.beranda') }}"    onclick="closeNavMobile()">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Beranda
     </a>
-    <a href="{{ route('user.profil') }}"     onclick="closeNavMobile()">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil
-    </a>
+      <div class="nav-mobile-group">
+      <div class="nav-mobile-group-label">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profil
+      </div>
+      <a href="{{ route('user.profil.selayang') }}" onclick="closeNavMobile()" class="nav-mobile-sub">📜 Selayang Pandang</a>
+      <a href="{{ route('user.profil.gambaran') }}" onclick="closeNavMobile()" class="nav-mobile-sub">🗺️ Gambaran Umum</a>
+      <a href="{{ route('user.profil.visi') }}" onclick="closeNavMobile()" class="nav-mobile-sub">🎯 Visi &amp; Misi</a>
+      <a href="{{ route('user.profil.struktur') }}" onclick="closeNavMobile()" class="nav-mobile-sub">🏛️ Struktur Organisasi</a>
+    </div>
     <a href="{{ route('user.data-warga') }}" onclick="closeNavMobile()">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Data Warga
     </a>

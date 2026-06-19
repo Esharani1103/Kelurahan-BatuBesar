@@ -4,7 +4,7 @@
 
 <div class="container py-8">
     <div class="flex items-center justify-between mb-6">
-        <h1 class="text-3xl font-bold">Teks Berjalan (Ticker)</h1>
+        <h1 class="text-3xl font-bold">Pengumuman Kelurahan</h1>
         <button onclick="openModal('tambah')"
         class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 text-sm font-semibold">
         + Tambah Pengumuman

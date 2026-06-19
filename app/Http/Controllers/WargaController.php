@@ -50,6 +50,21 @@ class WargaController extends Controller
     return view('admin.warga.index', compact('warga','keluargas'));
 }
 
+    public function deletePage(Request $request)
+{
+    $page = $request->page;
+    $perPage = 100;
+
+    $ids = Warga::orderBy('id')
+        ->skip(($page - 1) * $perPage)
+        ->take($perPage)
+        ->pluck('id');
+
+    Warga::whereIn('id', $ids)->delete();
+
+    return back()->with('success', "Data halaman {$page} berhasil dihapus");
+}
+    
     public function store(Request $request)
     {
         $request->validate([

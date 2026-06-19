@@ -1,24 +1,10 @@
 @extends('layouts.user')
+@section('title', 'Struktur Organisasi')
+
+@push('styles')
+    @vite('resources/css/profil-konten.css')
+@endpush
 
 @section('content')
-
-<section class="profile-section">
-    <div class="container">
-
-        <!-- JUDUL -->
-        <h3 class="fw-bold mb-4" style="color:#004225;">
-            Struktur Organisasi
-        </h3>
-
-        <!-- GAMBAR STRUKTUR -->
-        <div class="text-center">
-            <img src="{{ asset('images/struktur.png') }}"
-                 alt="Struktur Organisasi"
-                 class="img-fluid shadow rounded"
-                 style="max-width: 900px;">
-        </div>
-
-    </div>
-</section>
-
+    @include('user._profil_konten', ['konten' => $konten, 'icon' => '🏛️'])
 @endsection

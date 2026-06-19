@@ -82,22 +82,40 @@
             <h2 class="text-lg font-bold">Tambah Aparatur</h2>
             <button onclick="closeModal('tambah')" class="text-gray-400 hover:text-gray-700 text-xl font-bold">✕</button>
         </div>
+        @if ($errors->any())
+    <div class="bg-red-100 border border-red-300 text-red-700 px-3 py-2 rounded text-sm mb-3">
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form method="POST" action="{{ route('admin.aparatur.store') }}" enctype="multipart/form-data" class="p-5 space-y-4">
             @csrf
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-1">Nama Lengkap *</label>
-                <input type="text" name="nama" required placeholder="Contoh: AGUS SISWANTO, S.AP"
+                <input type="text" name="nama" required placeholder="Contoh: AGUS, S.AP"
                        class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                       @error('nama')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-1">Jabatan *</label>
                 <input type="text" name="jabatan" required placeholder="Contoh: Lurah"
                        class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                       @error('jabatan')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-1">NIP</label>
                 <input type="text" name="nip" placeholder="NIP 197805 200501 1 008"
                        class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-green-500">
+                       @error('nip')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
             </div>
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-1">Urutan</label>
